@@ -74,6 +74,7 @@ public enum EventObject: Codable {
     case applicationFee(ApplicationFee)
     case applicationFeeRefund(ApplicationFeeRefund)
     case balance(Balance)
+    case billingPortalSessionCreated(PortalSession)
     case capability(Capability)
     case charge(Charge)
     case dispute(Dispute)
@@ -104,7 +105,7 @@ public enum EventObject: Codable {
     case price(Price)
     case product(Product)
     case promotionCode(PromotionCode)
-    case earlyFraudWarniing(EarlyFraudWarning)
+    case earlyFraudWarning(EarlyFraudWarning)
     case quote(Quote)
     case reportRun(ReportRun)
     case reportType(ReportType)
@@ -138,6 +139,8 @@ public enum EventObject: Codable {
             self = try .bankAccount(BankAccount(from: decoder))
         case "billing_portal.configuration":
             self = try .configuration(PortalConfiguration(from: decoder))
+        case "billing_portal.session.created":
+            self = try .billingPortalSessionCreated(PortalSession(from: decoder))
         case "fee_refund":
             self = try .applicationFeeRefund(ApplicationFeeRefund(from: decoder))
         case "balance":
@@ -203,7 +206,7 @@ public enum EventObject: Codable {
         case "promotion_code":
             self = try .promotionCode(PromotionCode(from: decoder))
         case "radar.early_fraud_warning":
-            self = try .earlyFraudWarniing(EarlyFraudWarning(from: decoder))
+            self = try .earlyFraudWarning(EarlyFraudWarning(from: decoder))
         case "quote":
             self = try .quote(Quote(from: decoder))
         case "reporting.report_run":
@@ -253,6 +256,8 @@ public enum EventObject: Codable {
             try applicationFeeRefund.encode(to: encoder)
         case .balance(let balance):
             try balance.encode(to: encoder)
+        case .billingPortalSessionCreated(let portalSession):
+            try portalSession.encode(to: encoder)
         case .capability(let capability):
             try capability.encode(to: encoder)
         case .charge(let charge):
@@ -313,7 +318,7 @@ public enum EventObject: Codable {
             try product.encode(to: encoder)
         case .promotionCode(let promotionCode):
             try promotionCode.encode(to: encoder)
-        case .earlyFraudWarniing(let earlyFraudWarning):
+        case .earlyFraudWarning(let earlyFraudWarning):
             try earlyFraudWarning.encode(to: encoder)
         case .quote(let quote):
             try quote.encode(to: encoder)
