@@ -193,6 +193,7 @@ public enum PaymentMethodType: String, Codable {
   case oxxo
   case p24
   case paynow
+  case paypal
   case pix
   case promptpay
   case sepaDebit = "sepa_debit"

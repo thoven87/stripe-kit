@@ -175,6 +175,7 @@ public enum StripeSourceType: String, Codable {
   case ideal
   case multibanco
   case p24
+  case paypal
   case sepaDebit = "sepa_debit"
   case sofort
   case threeDSecure = "three_d_secure"
