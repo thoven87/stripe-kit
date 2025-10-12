@@ -228,22 +228,22 @@ public struct SubscriptionCancellationDetails: Codable {
 }
 
 public enum SubscriptionCancellationDetailsFeedback: String, Codable {
-    /// It’s too expensive
-    case tooExpensive = "too_expensive"
-    /// Some features are missing
-    case missingFeatures = "missing_features"
-    /// I’m switching to a different service
-    case switchService = "switch_service"
-    /// I don’t use the service enough
-    case unused
-    /// Customer service was less than expected
-    case customerService = "customer_service"
-    /// Ease of use was less than expected
-    case tooComplex = "too_complex"
-    /// Quality was less than expected
-    case lowQuality = "low_quality"
-    /// Other reason
-    case other
+  /// It’s too expensive
+  case tooExpensive = "too_expensive"
+  /// Some features are missing
+  case missingFeatures = "missing_features"
+  /// I’m switching to a different service
+  case switchService = "switched_service"
+  /// I don’t use the service enough
+  case unused
+  /// Customer service was less than expected
+  case customerService = "customer_service"
+  /// Ease of use was less than expected
+  case tooComplex = "too_complex"
+  /// Quality was less than expected
+  case lowQuality = "low_quality"
+  /// Other reason
+  case other
 }
 
 public enum SubscriptionCollectionMethod: String, Codable {

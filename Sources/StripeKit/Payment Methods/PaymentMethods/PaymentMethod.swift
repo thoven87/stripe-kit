@@ -166,37 +166,38 @@ public struct PaymentMethod: Codable {
 }
 
 public enum PaymentMethodType: String, Codable {
-    case acssDebit = "acss_debit"
-    case affirm
-    case afterpayClearpay = "afterpay_clearpay"
-    case alipay
-    case auBecsDebit = "au_becs_debit"
-    case bacsDebit = "bacs_debit"
-    case bancontact
-    case blik
-    case boleto
-    case card
-    case cardPresent = "card_present"
-    case cashapp
-    case customerBalance = "customer_balance"
-    case eps
-    case fpx
-    case giropay
-    case grabpay
-    case ideal
-    case interactPresent = "interact_present"
-    case klarna
-    case konbini
-    case link
-    case oxxo
-    case p24
-    case paynow
-    case pix
-    case promptpay
-    case sepaDebit = "sepa_debit"
-    case sofort
-    case usBankAccount = "us_bank_account"
-    case wechatPay = "wechat_pay"
+  case acssDebit = "acss_debit"
+  case affirm
+  case afterpayClearpay = "afterpay_clearpay"
+  case alipay
+  case auBecsDebit = "au_becs_debit"
+  case bacsDebit = "bacs_debit"
+  case bancontact
+  case blik
+  case boleto
+  case card
+  case cardPresent = "card_present"
+  case cashapp
+  case customerBalance = "customer_balance"
+  case eps
+  case fpx
+  case giropay
+  case grabpay
+  case ideal
+  case interactPresent = "interact_present"
+  case klarna
+  case konbini
+  case link
+  case oxxo
+  case p24
+  case paynow
+  case paypal
+  case pix
+  case promptpay
+  case sepaDebit = "sepa_debit"
+  case sofort
+  case usBankAccount = "us_bank_account"
+  case wechatPay = "wechat_pay"
 }
 
 public struct PaymentMethodRadarOptions: Codable {

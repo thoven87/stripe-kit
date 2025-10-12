@@ -164,21 +164,22 @@ public enum StripeSourceStatus: String, Codable {
 }
 
 public enum StripeSourceType: String, Codable {
-    case achCreditTransfer = "ach_credit_transfer"
-    case achDebit = "ach_debit"
-    case alipay
-    case bancontact
-    case card
-    case cardPresent = "card_present"
-    case eps
-    case giropay
-    case ideal
-    case multibanco
-    case p24
-    case sepaDebit = "sepa_debit"
-    case sofort
-    case threeDSecure = "three_d_secure"
-    case wechat
+  case achCreditTransfer = "ach_credit_transfer"
+  case achDebit = "ach_debit"
+  case alipay
+  case bancontact
+  case card
+  case cardPresent = "card_present"
+  case eps
+  case giropay
+  case ideal
+  case multibanco
+  case p24
+  case paypal
+  case sepaDebit = "sepa_debit"
+  case sofort
+  case threeDSecure = "three_d_secure"
+  case wechat
 }
 
 public enum StripeSourceUsage: String, Codable {
