@@ -43,7 +43,7 @@ import NIOHTTP1
 //                token: String?,
 //                usage: StripeSourceUsage?,
 //                sources: [String: Any]?) -> EventLoopFuture<Source>
-//    
+//
 //    /// Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.
 //    ///
 //    /// - Parameters:
@@ -52,7 +52,7 @@ import NIOHTTP1
 //    /// - Returns: A `StripeSource`.
 //    @available(*, deprecated, message: "Stripe doesn’t recommend using the deprecated Sources API. Use the PaymentMethods API. This newer API provides access to our latest features and payment method types.")
 //    func retrieve(source: String, clientSecret: String?) -> EventLoopFuture<Source>
-//    
+//
 //    /// Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged. /n This request accepts the `metadata` and `owner` as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our payment method guides for more detail.
 //    ///
 //    /// - Parameters:
@@ -70,7 +70,7 @@ import NIOHTTP1
 //                metadata: [String: String]?,
 //                owner: [String: Any]?,
 //                sourceOrder: [String: Any]?) -> EventLoopFuture<Source>
-//    
+//
 //    /// Attaches a Source object to a Customer. The source must be in a chargeable or pending state.
 //    ///
 //    /// - Parameters:
@@ -79,7 +79,7 @@ import NIOHTTP1
 //    /// - Returns: A `StripeSource`.
 //    @available(*, deprecated, message: "Stripe doesn’t recommend using the deprecated Sources API. Use the PaymentMethods API. This newer API provides access to our latest features and payment method types.")
 //    func attach(source: String, customer: String) -> EventLoopFuture<Source>
-//    
+//
 //    /// Detaches a Source object from a Customer. The status of a source is changed to `consumed` when it is detached and it can no longer be used to create a charge.
 //    ///
 //    /// - Parameters:
@@ -88,7 +88,7 @@ import NIOHTTP1
 //    /// - Returns: A `StripeSource`.
 //    @available(*, deprecated, message: "Stripe doesn’t recommend using the deprecated Sources API. Use the PaymentMethods API. This newer API provides access to our latest features and payment method types.")
 //    func detach(id: String, customer: String) -> EventLoopFuture<Source>
-//    
+//
 //    /// Headers to send with the request.
 //    var headers: HTTPHeaders { get set }
 //}
@@ -123,11 +123,11 @@ import NIOHTTP1
 //                      usage: usage,
 //                      sources: sources)
 //    }
-//    
+//
 //    public func retrieve(source: String, clientSecret: String? = nil) -> EventLoopFuture<Source> {
 //        return retrieve(source: source, clientSecret: clientSecret)
 //    }
-//    
+//
 //    public func update(source: String,
 //                       amount: Int? = nil,
 //                       mandate: [String: Any]? = nil,
@@ -141,11 +141,11 @@ import NIOHTTP1
 //                      owner: owner,
 //                      sourceOrder: sourceOrder)
 //    }
-//    
+//
 //    public func attach(source: String, customer: String) -> EventLoopFuture<Source> {
 //        return attach(source: source, customer: customer)
 //    }
-//    
+//
 //    public func detach(id: String, customer: String) -> EventLoopFuture<Source> {
 //        return detach(id: id, customer: customer)
 //    }
@@ -153,15 +153,15 @@ import NIOHTTP1
 //
 //public struct StripeSourceRoutes: SourceRoutes {
 //    public var headers: HTTPHeaders = [:]
-//    
+//
 //    private let apiHandler: StripeAPIHandler
 //    private let sources = APIBase + APIVersion + "sources"
 //    private let customers = APIBase + APIVersion + "customers"
-//    
+//
 //    init(apiHandler: StripeAPIHandler) {
 //        self.apiHandler = apiHandler
 //    }
-//    
+//
 //    public func create(type: StripeSourceType,
 //                       amount: Int?,
 //                       currency: Currency?,
@@ -177,58 +177,58 @@ import NIOHTTP1
 //                       usage: StripeSourceUsage?,
 //                       sources: [String: Any]?) -> EventLoopFuture<Source> {
 //        var body: [String: Any] = ["type": type.rawValue]
-//        
+//
 //        if let currency = currency {
 //            body["currency"] = currency.rawValue
 //        }
-//        
+//
 //        if let flow = flow {
 //            body["flow"] = flow.rawValue
 //        }
-//        
+//
 //        if let mandate = mandate {
 //            mandate.forEach { body["mandate[\($0)]"] = $1 }
 //        }
-//        
+//
 //        if let metadata = metadata {
 //            metadata.forEach { body["metadata[\($0)]"] = $1 }
 //        }
-//        
+//
 //        if let owner = owner {
 //            owner.forEach { body["owner[\($0)]"] = $1 }
 //        }
-//        
+//
 //        if let receiver = receiver {
 //            receiver.forEach { body["receiver[\($0)]"] = $1 }
 //        }
-//        
+//
 //        if let redirect = redirect {
 //            redirect.forEach { body["redirect[\($0)]"] = $1 }
 //        }
-//        
+//
 //        if let sourceOrder = sourceOrder {
 //            sourceOrder.forEach { body["source_order[\($0)]"] = $1 }
 //        }
-//        
+//
 //        if let statementDescriptor = statementDescriptor {
 //            body["statement_descriptor"] = statementDescriptor
 //        }
-//        
+//
 //        if let token = token {
 //            body["token"] = token
 //        }
-//        
+//
 //        if let usage = usage {
 //            body["usage"] = usage
 //        }
-//        
+//
 //        if let sources = sources {
 //            sources.forEach { body["\($0)"] = $1}
 //        }
-//        
+//
 //        return apiHandler.send(method: .POST, path: self.sources, body: .string(body.queryParameters), headers: headers)
 //    }
-//    
+//
 //    public func retrieve(source: String, clientSecret: String?) -> EventLoopFuture<Source> {
 //        var query = ""
 //        if let clientSecret = clientSecret {
@@ -236,7 +236,7 @@ import NIOHTTP1
 //        }
 //        return apiHandler.send(method: .GET, path: "\(sources)/\(source)", query: query, headers: headers)
 //    }
-//    
+//
 //    public func update(source: String,
 //                       amount: Int?,
 //                       mandate: [String: Any]?,
@@ -244,35 +244,35 @@ import NIOHTTP1
 //                       owner: [String: Any]?,
 //                       sourceOrder: [String: Any]?) -> EventLoopFuture<Source> {
 //        var body: [String: Any] = [:]
-//        
+//
 //        if let amount = amount {
 //            body["amount"] = amount
 //        }
-//        
+//
 //        if let mandate = mandate {
 //            mandate.forEach { body["mandate[\($0)]"] = $1 }
 //        }
-//        
+//
 //        if let metadata = metadata {
 //            metadata.forEach { body["metadata[\($0)]"] = $1 }
 //        }
-//        
+//
 //        if let owner = owner {
 //            owner.forEach { body["owner[\($0)]"] = $1 }
 //        }
-//        
+//
 //        if let sourceOrder = sourceOrder {
 //            sourceOrder.forEach { body["source_order[\($0)]"] = $1 }
 //        }
-//        
+//
 //        return apiHandler.send(method: .POST, path: "\(sources)/\(source)", body: .string(body.queryParameters), headers: headers)
 //    }
-//    
+//
 //    public func attach(source: String, customer: String) -> EventLoopFuture<Source> {
 //        let body: [String: Any] = ["source": source]
 //        return apiHandler.send(method: .POST, path: "\(customers)/\(customer)/sources", body: .string(body.queryParameters), headers: headers)
 //    }
-//    
+//
 //    public func detach(id: String, customer: String) -> EventLoopFuture<Source> {
 //        return apiHandler.send(method: .DELETE, path: "\(customers)/\(customer)/sources/\(id)", headers: headers)
 //    }
