@@ -50,7 +50,7 @@ public protocol SessionRoutes: StripeAPIRoute {
     func create(
         lineItems: [[String: Any]]?,
         mode: SessionMode,
-        successUrl: String,
+        successUrl: String?,
         cancelUrl: String?,
         clientReferenceId: String?,
         currency: Currency?,
@@ -82,6 +82,14 @@ public protocol SessionRoutes: StripeAPIRoute {
         subscriptionData: [String: Any]?,
         taxIdCollection: [String: Any]?,
         managedPayments: [String: Any]?,
+        uiMode: SessionUIMode?,
+        returnUrl: String?,
+        savedPaymentMethodOptions: [String: Any]?,
+        redirectOnCompletion: SessionRedirectOnCompletion?,
+        paymentMethodConfiguration: String?,
+        optionalItems: [[String: Any]]?,
+        adaptivePricing: [String: Any]?,
+        permissions: [String: Any]?,
         expand: [String]?
     ) async throws -> Session
 
@@ -127,7 +135,7 @@ public struct StripeSessionRoutes: SessionRoutes {
     public func create(
         lineItems: [[String: Any]]? = nil,
         mode: SessionMode,
-        successUrl: String,
+        successUrl: String? = nil,
         cancelUrl: String? = nil,
         clientReferenceId: String? = nil,
         currency: Currency? = nil,
@@ -159,12 +167,18 @@ public struct StripeSessionRoutes: SessionRoutes {
         subscriptionData: [String: Any]? = nil,
         taxIdCollection: [String: Any]? = nil,
         managedPayments: [String: Any]? = nil,
+        uiMode: SessionUIMode? = nil,
+        returnUrl: String? = nil,
+        savedPaymentMethodOptions: [String: Any]? = nil,
+        redirectOnCompletion: SessionRedirectOnCompletion? = nil,
+        paymentMethodConfiguration: String? = nil,
+        optionalItems: [[String: Any]]? = nil,
+        adaptivePricing: [String: Any]? = nil,
+        permissions: [String: Any]? = nil,
         expand: [String]? = nil
     ) async throws -> Session {
-        var body: [String: Any] = [
-            "mode": mode.rawValue,
-            "success_url": successUrl,
-        ]
+        var body: [String: Any] = ["mode": mode.rawValue]
+        if let successUrl { body["success_url"] = successUrl }
         if let lineItems {
             body["line_items"] = lineItems
         }
@@ -291,6 +305,30 @@ public struct StripeSessionRoutes: SessionRoutes {
 
         if let managedPayments {
             managedPayments.forEach { body["managed_payments[\($0)]"] = $1 }
+        }
+
+        if let optionalItems {
+            body["optional_items"] = optionalItems
+        }
+
+        if let adaptivePricing {
+            adaptivePricing.forEach { body["adaptive_pricing[\($0)]"] = $1 }
+        }
+
+        if let permissions {
+            permissions.forEach { body["permissions[\($0)]"] = $1 }
+        }
+
+        if let uiMode { body["ui_mode"] = uiMode.rawValue }
+        if let returnUrl { body["return_url"] = returnUrl }
+        if let savedPaymentMethodOptions {
+            savedPaymentMethodOptions.forEach { body["saved_payment_method_options[\($0)]"] = $1 }
+        }
+        if let redirectOnCompletion {
+            body["redirect_on_completion"] = redirectOnCompletion.rawValue
+        }
+        if let paymentMethodConfiguration {
+            body["payment_method_configuration"] = paymentMethodConfiguration
         }
 
         if let expand {

@@ -18,6 +18,8 @@ public struct Meter: Codable {
     public var created: Date?
     /// Fields that specify how to map a meter event to a customer.
     public var customerMapping: MeterCustomerMapping
+    /// The default settings to aggregate a meter's events with.
+    public var defaultAggregation: MeterDefaultAggregation
     /// The meter's name.
     public var displayName: String
     /// The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
@@ -25,11 +27,11 @@ public struct Meter: Codable {
     /// The time window to pre-aggregate meter events for, if any.
     public var eventTimeWindow: MeterEventTimeWindow?
     /// Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-    public var liveMode: Bool?
+    public var livemode: Bool?
     /// The meter's status.
     public var status: MeterStatus
     /// The timestamps at which the meter status changed.
-    public var meterStatusTransitions: MeterStatusTransitions?
+    public var statusTransitions: MeterStatusTransitions?
     /// Time at which the object was last updated. Measured in seconds since the Unix epoch.
     public var updated: Date
     /// Fields that specify how to calculate a meter event's value.

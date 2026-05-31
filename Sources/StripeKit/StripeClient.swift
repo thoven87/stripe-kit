@@ -26,12 +26,17 @@ public struct StripeClient: Sendable {
     public var refunds: RefundRoutes
     public var tokens: TokenRoutes
     public var ephemeralKeys: EphemeralKeyRoutes
+    public var customerSessions: CustomerSessionRoutes
+    public var confirmationTokens: ConfirmationTokenRoutes
 
     // MARK: - PAYMENT METHODS
     public var paymentMethods: PaymentMethodRoutes
     public var bankAccounts: BankAccountRoutes
     public var cashBalances: CashBalanceRoutes
     public var cards: CardRoutes
+    public var paymentMethodConfigurations: PaymentMethodConfigurationRoutes
+    public var paymentMethodDomains: PaymentMethodDomainRoutes
+    public var cashBalanceTransactions: CashBalanceTransactionRoutes
     //    public var sources: SourceRoutes
 
     // MARK: - CHECKOUT
@@ -73,6 +78,10 @@ public struct StripeClient: Sendable {
     public var testClocks: TestClockRoutes
     public var meters: MeterRoutes
     public var meterEvents: MeterEventRoutes
+    public var billingAlerts: BillingAlertRoutes
+    public var creditGrants: CreditGrantRoutes
+    public var invoiceRenderingTemplates: InvoiceRenderingTemplateRoutes
+    public var meterEventAdjustments: MeterEventAdjustmentRoutes
 
     // MARK: - CONNECT
     public var connectAccounts: AccountRoutes
@@ -127,7 +136,7 @@ public struct StripeClient: Sendable {
     // MARK: - WEBHOOKS
     public var webhookEndpoints: WebhookEndpointRoutes
 
-    var handler: StripeAPIHandler
+    private let handler: StripeAPIHandler
 
     /// Returns a StripeClient used to interact with the Stripe APIs.
     /// - Parameter httpClient: An `HTTPClient`used to communicate wiith the Stripe API
@@ -151,11 +160,16 @@ public struct StripeClient: Sendable {
         refunds = StripeRefundRoutes(apiHandler: handler)
         tokens = StripeTokenRoutes(apiHandler: handler)
         ephemeralKeys = StripeEphemeralKeyRoutes(apiHandler: handler)
+        customerSessions = StripeCustomerSessionRoutes(apiHandler: handler)
+        confirmationTokens = StripeConfirmationTokenRoutes(apiHandler: handler)
 
         paymentMethods = StripePaymentMethodRoutes(apiHandler: handler)
         bankAccounts = StripeBankAccountRoutes(apiHandler: handler)
         cashBalances = StripeCashBalanceRoutes(apiHandler: handler)
         cards = StripeCardRoutes(apiHandler: handler)
+        paymentMethodConfigurations = StripePaymentMethodConfigurationRoutes(apiHandler: handler)
+        paymentMethodDomains = StripePaymentMethodDomainRoutes(apiHandler: handler)
+        cashBalanceTransactions = StripeCashBalanceTransactionRoutes(apiHandler: handler)
         //        sources = StripeSourceRoutes(apiHandler: handler)
 
         sessions = StripeSessionRoutes(apiHandler: handler)
@@ -192,6 +206,10 @@ public struct StripeClient: Sendable {
         testClocks = StripeTestClockRoutes(apiHandler: handler)
         meters = StripeMeterRoutes(apiHandler: handler)
         meterEvents = StripeMeterEventRoutes(apiHandler: handler)
+        billingAlerts = StripeBillingAlertRoutes(apiHandler: handler)
+        creditGrants = StripeCreditGrantRoutes(apiHandler: handler)
+        invoiceRenderingTemplates = StripeInvoiceRenderingTemplateRoutes(apiHandler: handler)
+        meterEventAdjustments = StripeMeterEventAdjustmentRoutes(apiHandler: handler)
 
         connectAccounts = StripeConnectAccountRoutes(apiHandler: handler)
         accountSessions = StripeAccountSessionsRoutes(apiHandler: handler)
