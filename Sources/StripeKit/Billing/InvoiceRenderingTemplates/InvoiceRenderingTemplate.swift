@@ -8,7 +8,7 @@ import Foundation
 /// [The InvoiceRenderingTemplate Object](https://docs.stripe.com/api/invoice_rendering_templates/object)
 ///
 /// Invoice Rendering Templates are used to configure how invoices are rendered on Stripe-hosted pages.
-public struct InvoiceRenderingTemplate: Codable {
+public struct InvoiceRenderingTemplate: Codable, Sendable {
     /// Unique identifier for the object.
     public var id: String
     /// String representing the object's type.
@@ -27,12 +27,12 @@ public struct InvoiceRenderingTemplate: Codable {
     public var version: Int?
 }
 
-public enum InvoiceRenderingTemplateStatus: String, Codable {
+public enum InvoiceRenderingTemplateStatus: String, Codable, Sendable {
     case active
     case archived
 }
 
-public struct InvoiceRenderingTemplateList: Codable {
+public struct InvoiceRenderingTemplateList: Codable, Sendable {
     public var object: String
     public var hasMore: Bool?
     public var url: String?

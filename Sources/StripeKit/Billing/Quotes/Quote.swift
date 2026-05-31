@@ -8,7 +8,7 @@
 import Foundation
 
 /// A Quote is a way to model prices that you'd like to provide to a customer. Once accepted, it will automatically create an invoice, subscription or subscription schedule.
-public struct Quote: Codable {
+public struct Quote: Codable, Sendable {
   /// Unique identifier for the object.
   public var id: String
   /// This field is not included by default. To include it in the response, expand the `line_items` field.
@@ -155,7 +155,7 @@ public struct Quote: Codable {
   }
 }
 
-public struct QuoteAutomaticTax: Codable {
+public struct QuoteAutomaticTax: Codable, Sendable {
   /// Automatically calculate taxes
   public var enabled: Bool
   /// The status of the most recent automated tax calculation for this quote.
@@ -167,7 +167,7 @@ public struct QuoteAutomaticTax: Codable {
   }
 }
 
-public enum QuoteAutomaticTaxStatus: String, Codable {
+public enum QuoteAutomaticTaxStatus: String, Codable, Sendable {
   /// The location details supplied on the customer aren’t valid or don’t provide enough location information to accurately determine tax rates for the customer.
   case requiresLocationInputs = "requires_location_inputs"
   /// Stripe successfully calculated tax automatically on this quote.
@@ -176,12 +176,12 @@ public enum QuoteAutomaticTaxStatus: String, Codable {
   case failed
 }
 
-public enum QuoteCollectionMethod: String, Codable {
+public enum QuoteCollectionMethod: String, Codable, Sendable {
   case chargeAutomatically = "charge_automatically"
   case sendInvoice = "send_invoice"
 }
 
-public struct QuoteComputed: Codable {
+public struct QuoteComputed: Codable, Sendable {
   /// The definitive totals and line items the customer will be charged on a recurring basis. Takes into account the line items with recurring prices and discounts with `duration=forever` coupons only. Defaults to null if no inputted line items with recurring prices.
   public var recurring: QuoteComputedRecurring?
   /// The definitive upfront totals and line items the customer will be charged on the first invoice.
@@ -193,7 +193,7 @@ public struct QuoteComputed: Codable {
   }
 }
 
-public struct QuoteComputedRecurring: Codable {
+public struct QuoteComputedRecurring: Codable, Sendable {
   /// Total before any discounts or taxes are applied.
   public var amountSubtotal: Int?
   /// Total after discounts and taxes are applied.
@@ -220,7 +220,7 @@ public struct QuoteComputedRecurring: Codable {
   }
 }
 
-public struct QuoteComputedRecurringTotalDetails: Codable {
+public struct QuoteComputedRecurringTotalDetails: Codable, Sendable {
   /// This is the sum of all the line item discounts.
   public var amountDiscount: Int?
   /// This is the sum of all the line item shipping amounts.
@@ -245,7 +245,7 @@ public struct QuoteComputedRecurringTotalDetails: Codable {
   }
 }
 
-public struct QuoteComputedRecurringTotalDetailsBreakdown: Codable {
+public struct QuoteComputedRecurringTotalDetailsBreakdown: Codable, Sendable {
   /// The aggregated line item discounts.
   public var discounts: [QuoteComputedRecurringTotalDetailsBreakdownDiscount]?
   /// The aggregated line item tax amounts by rate.
@@ -260,7 +260,7 @@ public struct QuoteComputedRecurringTotalDetailsBreakdown: Codable {
   }
 }
 
-public struct QuoteComputedRecurringTotalDetailsBreakdownDiscount: Codable {
+public struct QuoteComputedRecurringTotalDetailsBreakdownDiscount: Codable, Sendable {
   /// The amount discounted.
   public var amount: Int?
   /// The discount applied.
@@ -272,7 +272,7 @@ public struct QuoteComputedRecurringTotalDetailsBreakdownDiscount: Codable {
   }
 }
 
-public struct QuoteComputedRecurringTotalDetailsBreakdownTax: Codable {
+public struct QuoteComputedRecurringTotalDetailsBreakdownTax: Codable, Sendable {
   /// Amount of tax applied for this rate.
   public var amount: Int?
   /// The tax rate applied.
@@ -291,7 +291,7 @@ public struct QuoteComputedRecurringTotalDetailsBreakdownTax: Codable {
   }
 }
 
-public enum QuoteComputedRecurringTotalDetailsBreakdownTaxTaxabilityReason: String, Codable {
+public enum QuoteComputedRecurringTotalDetailsBreakdownTaxTaxabilityReason: String, Codable, Sendable {
   case vatExempt = "vat_exempt"
   case jurisdictionUnsupported = "jurisdiction_unsupported"
   case excludedTerritory = "excluded_territory"
@@ -312,7 +312,7 @@ public enum QuoteComputedRecurringTotalDetailsBreakdownTaxTaxabilityReason: Stri
   case proportionallyRated = "proportionally_rated"
 }
 
-public struct QuoteComputedUpfront: Codable {
+public struct QuoteComputedUpfront: Codable, Sendable {
   /// Total before any discounts or taxes are applied.
   public var amountSubtotal: Int?
   /// Total after discounts and taxes are applied.
@@ -337,7 +337,7 @@ public struct QuoteComputedUpfront: Codable {
   }
 }
 
-public struct QuoteComputedUpfrontTotalDetails: Codable {
+public struct QuoteComputedUpfrontTotalDetails: Codable, Sendable {
   /// This is the sum of all the line item discounts.
   public var amountDiscount: Int?
   /// This is the sum of all the line item shipping amounts.
@@ -362,7 +362,7 @@ public struct QuoteComputedUpfrontTotalDetails: Codable {
   }
 }
 
-public struct QuoteComputedUpfrontTotalDetailsBreakdown: Codable {
+public struct QuoteComputedUpfrontTotalDetailsBreakdown: Codable, Sendable {
   /// The aggregated line item discounts.
   public var discounts: [QuoteComputedUpfrontTotalDetailsBreakdownDiscount]?
   /// The aggregated line item tax amounts by rate.
@@ -377,7 +377,7 @@ public struct QuoteComputedUpfrontTotalDetailsBreakdown: Codable {
   }
 }
 
-public struct QuoteComputedUpfrontTotalDetailsBreakdownDiscount: Codable {
+public struct QuoteComputedUpfrontTotalDetailsBreakdownDiscount: Codable, Sendable {
   /// The amount discounted.
   public var amount: Int?
   /// The discount applied.
@@ -389,7 +389,7 @@ public struct QuoteComputedUpfrontTotalDetailsBreakdownDiscount: Codable {
   }
 }
 
-public struct QuoteComputedUpfrontTotalDetailsBreakdownTax: Codable {
+public struct QuoteComputedUpfrontTotalDetailsBreakdownTax: Codable, Sendable {
   /// Amount of tax applied for this rate.
   public var amount: Int?
   /// The tax rate applied.
@@ -408,7 +408,7 @@ public struct QuoteComputedUpfrontTotalDetailsBreakdownTax: Codable {
   }
 }
 
-public enum QuoteComputedUpfrontTotalDetailsBreakdownTaxTaxabilityReason: String, Codable {
+public enum QuoteComputedUpfrontTotalDetailsBreakdownTaxTaxabilityReason: String, Codable, Sendable {
   case vatExempt = "vat_exempt"
   case jurisdictionUnsupported = "jurisdiction_unsupported"
   case excludedTerritory = "excluded_territory"
@@ -429,7 +429,7 @@ public enum QuoteComputedUpfrontTotalDetailsBreakdownTaxTaxabilityReason: String
   case proportionallyRated = "proportionally_rated"
 }
 
-public struct QuoteFromQuote: Codable {
+public struct QuoteFromQuote: Codable, Sendable {
   /// Whether this quote is a revision of a different quote.
   public var isRevision: Bool?
   /// The quote that was cloned.
@@ -441,7 +441,7 @@ public struct QuoteFromQuote: Codable {
   }
 }
 
-public struct QuoteInvoiceSettings: Codable {
+public struct QuoteInvoiceSettings: Codable, Sendable {
   /// Number of days within which a customer must pay invoices generated by this quote. This value will be null for quotes where `collection_method=charge_automatically`.
   public var daysUntilDue: Int?
 
@@ -450,7 +450,7 @@ public struct QuoteInvoiceSettings: Codable {
   }
 }
 
-public enum QuoteStatus: String, Codable {
+public enum QuoteStatus: String, Codable, Sendable {
   /// The quote can be edited while in this status and has not been sent to the customer.
   case draft
   /// The quote has been finalized and is awaiting action from the customer.
@@ -461,7 +461,7 @@ public enum QuoteStatus: String, Codable {
   case canceled
 }
 
-public struct QuoteStatusTransition: Codable {
+public struct QuoteStatusTransition: Codable, Sendable {
   /// The time that the quote was accepted. Measured in seconds since Unix epoch.
   public var acceptedAt: Date?
   /// The time that the quote was canceled. Measured in seconds since Unix epoch.
@@ -480,7 +480,7 @@ public struct QuoteStatusTransition: Codable {
   }
 }
 
-public struct QuoteSubscriptionData: Codable {
+public struct QuoteSubscriptionData: Codable, Sendable {
   /// The subscription’s description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
   public var description: String?
   /// When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. This date is ignored if it is in the past when the quote is accepted. Measured in seconds since the Unix epoch.
@@ -499,7 +499,7 @@ public struct QuoteSubscriptionData: Codable {
   }
 }
 
-public struct QuoteTotalDetails: Codable {
+public struct QuoteTotalDetails: Codable, Sendable {
   /// This is the sum of all the line item discounts.
   public var amountDiscount: Int?
   /// This is the sum of all the line item shipping amounts.
@@ -524,7 +524,7 @@ public struct QuoteTotalDetails: Codable {
   }
 }
 
-public struct QuoteTotalDetailsBreakdown: Codable {
+public struct QuoteTotalDetailsBreakdown: Codable, Sendable {
   /// The aggregated line item discounts.
   public var discounts: [QuoteTotalDetailsBreakdownDiscount]?
   /// The aggregated line item tax amounts by rate.
@@ -539,7 +539,7 @@ public struct QuoteTotalDetailsBreakdown: Codable {
   }
 }
 
-public struct QuoteTotalDetailsBreakdownDiscount: Codable {
+public struct QuoteTotalDetailsBreakdownDiscount: Codable, Sendable {
   /// The amount discounted.
   public var amount: Int?
   /// The discount applied.
@@ -551,7 +551,7 @@ public struct QuoteTotalDetailsBreakdownDiscount: Codable {
   }
 }
 
-public struct QuoteTotalDetailsBreakdownTax: Codable {
+public struct QuoteTotalDetailsBreakdownTax: Codable, Sendable {
   /// Amount of tax applied for this rate.
   public var amount: Int?
   /// The tax rate applied.
@@ -570,7 +570,7 @@ public struct QuoteTotalDetailsBreakdownTax: Codable {
   }
 }
 
-public enum QuoteTotalDetailsBreakdownTaxTaxabilityReason: String, Codable {
+public enum QuoteTotalDetailsBreakdownTaxTaxabilityReason: String, Codable, Sendable {
   case vatExempt = "vat_exempt"
   case jurisdictionUnsupported = "jurisdiction_unsupported"
   case excludedTerritory = "excluded_territory"
@@ -591,7 +591,7 @@ public enum QuoteTotalDetailsBreakdownTaxTaxabilityReason: String, Codable {
   case proportionallyRated = "proportionally_rated"
 }
 
-public struct QuoteTransferData: Codable {
+public struct QuoteTransferData: Codable, Sendable {
   /// The amount in cents that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
   public var amount: Int?
   /// A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account. By default, the entire amount will be transferred to the destination.
@@ -610,7 +610,7 @@ public struct QuoteTransferData: Codable {
   }
 }
 
-public struct QuoteList: Codable {
+public struct QuoteList: Codable, Sendable {
   public var object: String
   public var hasMore: Bool?
   public var url: String?

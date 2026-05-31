@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct VerificationReport: Codable {
+public struct VerificationReport: Codable, Sendable {
   /// Unique identifier for the object.
   public var id: String
   /// String representing the object’s type. Objects of the same type share the same value.
@@ -54,7 +54,7 @@ public struct VerificationReport: Codable {
   }
 }
 
-public struct VerificationReportDocument: Codable {
+public struct VerificationReportDocument: Codable, Sendable {
   /// Address as it appears in the document.
   public var address: Address?
   /// Date of birth as it appears in the document.
@@ -112,7 +112,7 @@ public struct VerificationReportDocument: Codable {
   }
 }
 
-public struct VerificationReportDocumentError: Codable {
+public struct VerificationReportDocumentError: Codable, Sendable {
   /// A short machine-readable string giving the reason for the verification failure.
   public var code: VerificationReportDocumentErrorCode?
   /// A human-readable message giving the reason for the failure. These messages can be shown to your users.
@@ -124,7 +124,7 @@ public struct VerificationReportDocumentError: Codable {
   }
 }
 
-public enum VerificationReportDocumentErrorCode: String, Codable {
+public enum VerificationReportDocumentErrorCode: String, Codable, Sendable {
   /// The provided identity document has expired.
   case documentExpired = "document_expired"
   /// Stripe couldn’t verify the provided identity document. See [list of supported document types](https://stripe.com/docs/identity/verification-checks?type=document)
@@ -133,14 +133,14 @@ public enum VerificationReportDocumentErrorCode: String, Codable {
   case documentTypeNotSupported = "document_type_not_supported"
 }
 
-public enum VerificationReportDocumentStatus: String, Codable {
+public enum VerificationReportDocumentStatus: String, Codable, Sendable {
   /// The check resulted in a successful verification.
   case verified
   /// The data being checked was not able to be verified.
   case unverified
 }
 
-public enum VerificationReportDocumentType: String, Codable {
+public enum VerificationReportDocumentType: String, Codable, Sendable {
   /// Drivers license document type.
   case drivingLicense = "driving_license"
   /// Passport document type.
@@ -149,7 +149,7 @@ public enum VerificationReportDocumentType: String, Codable {
   case idCard = "id_card"
 }
 
-public struct VerificationReportIdNumber: Codable {
+public struct VerificationReportIdNumber: Codable, Sendable {
   /// Date of birth.
   /// This field is not included by default. To include it in the response, expand the `dob` field.
   public var dob: PersonDOB?
@@ -185,7 +185,7 @@ public struct VerificationReportIdNumber: Codable {
   }
 }
 
-public struct VerificationReportIdNumberError: Codable {
+public struct VerificationReportIdNumberError: Codable, Sendable {
   /// A short machine-readable string giving the reason for the verification failure.
   public var code: VerificationReportIdNumberErrorReason?
   /// A human-readable message giving the reason for the failure. These messages can be shown to your users.
@@ -197,7 +197,7 @@ public struct VerificationReportIdNumberError: Codable {
   }
 }
 
-public enum VerificationReportIdNumberErrorReason: String, Codable {
+public enum VerificationReportIdNumberErrorReason: String, Codable, Sendable {
   /// The information provided couldn’t be verified. See [list of supported ID numbers](https://stripe.com/docs/identity/verification-checks?type=id-number)
   case idNumberUnverifiedOther = "id_number_unverified_other"
   /// The provided document didn’t contain enough data to match against the ID number.
@@ -206,7 +206,7 @@ public enum VerificationReportIdNumberErrorReason: String, Codable {
   case idNumberMismatch = "id_number_mismatch"
 }
 
-public enum VerificationReportIdNumberType: String, Codable {
+public enum VerificationReportIdNumberType: String, Codable, Sendable {
   /// An individual CPF number from Brazil.
   case brCpf = "br_cpf"
   /// A national registration identity card number from Singapore.
@@ -215,14 +215,14 @@ public enum VerificationReportIdNumberType: String, Codable {
   case usSsn = "us_ssn"
 }
 
-public enum VerificationReportIdNumberStatus: String, Codable {
+public enum VerificationReportIdNumberStatus: String, Codable, Sendable {
   /// The check resulted in a successful verification.
   case verified
   /// The data being checked was not able to be verified.
   case unverified
 }
 
-public struct VerificationReportOptions: Codable {
+public struct VerificationReportOptions: Codable, Sendable {
   /// Configuration options to apply to the `document` check.
   public var document: VerificationReportOptionsDocument?
   /// Configuration options to apply to the `id_number` check.
@@ -237,7 +237,7 @@ public struct VerificationReportOptions: Codable {
   }
 }
 
-public struct VerificationReportOptionsDocument: Codable {
+public struct VerificationReportOptionsDocument: Codable, Sendable {
   /// Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a `document_type_not_allowed` error code.
   public var allowedTypes: [VerificationReportOptionsDocumentAllowedType]?
   /// Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
@@ -260,7 +260,7 @@ public struct VerificationReportOptionsDocument: Codable {
   }
 }
 
-public enum VerificationReportOptionsDocumentAllowedType: String, Codable {
+public enum VerificationReportOptionsDocumentAllowedType: String, Codable, Sendable {
   /// Drivers license document type.
   case drivingLicense = "driving_license"
   /// Passport document type.
@@ -269,11 +269,11 @@ public enum VerificationReportOptionsDocumentAllowedType: String, Codable {
   case idCard = "id_card"
 }
 
-public struct VerificationReportOptionsIdNumber: Codable {
+public struct VerificationReportOptionsIdNumber: Codable, Sendable {
   public init() {}
 }
 
-public struct VerificationReportSelfie: Codable {
+public struct VerificationReportSelfie: Codable, Sendable {
   /// ID of the File holding the image of the identity document used in this check.
   public var document: String?
   /// Details on the verification error. Present when status is `unverified`.
@@ -296,7 +296,7 @@ public struct VerificationReportSelfie: Codable {
   }
 }
 
-public struct VerificationReportSelfieError: Codable {
+public struct VerificationReportSelfieError: Codable, Sendable {
   /// A short machine-readable string giving the reason for the verification failure.
   public var code: VerificationReportSelfieErrorCode?
   /// A human-readable message giving the reason for the failure. These messages can be shown to your users.
@@ -308,7 +308,7 @@ public struct VerificationReportSelfieError: Codable {
   }
 }
 
-public enum VerificationReportSelfieErrorCode: String, Codable {
+public enum VerificationReportSelfieErrorCode: String, Codable, Sendable {
   /// The provided identity document didn’t contain a picture of a face.
   case selfieDocumentMissingPhoto = "selfie_document_missing_photo"
   /// The captured face image didn’t match with the document’s face.
@@ -319,21 +319,21 @@ public enum VerificationReportSelfieErrorCode: String, Codable {
   case selfieManipulated = "selfie_manipulated"
 }
 
-public enum VerificationReportSelfieStatus: String, Codable {
+public enum VerificationReportSelfieStatus: String, Codable, Sendable {
   /// The check resulted in a successful verification.
   case verified
   /// The data being checked was not able to be verified.
   case unverified
 }
 
-public enum VerificationReportType: String, Codable {
+public enum VerificationReportType: String, Codable, Sendable {
   /// Perform a document check.
   case document
   /// Perform an ID number check.
   case idNumber = "id_number"
 }
 
-public struct VerificationReportList: Codable {
+public struct VerificationReportList: Codable, Sendable {
   public var object: String
   public var data: [VerificationReport]?
   public var hasMore: Bool?

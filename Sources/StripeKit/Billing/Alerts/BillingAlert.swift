@@ -8,7 +8,7 @@ import Foundation
 /// [The Billing Alert Object](https://docs.stripe.com/api/billing/alerts/object)
 ///
 /// A billing alert is a resource that notifies you when a certain usage threshold on a meter is crossed.
-public struct BillingAlert: Codable {
+public struct BillingAlert: Codable, Sendable {
     /// Unique identifier for the object.
     public var id: String
     /// String representing the object's type.
@@ -25,17 +25,17 @@ public struct BillingAlert: Codable {
     public var usageThreshold: BillingAlertUsageThreshold?
 }
 
-public enum BillingAlertType: String, Codable {
+public enum BillingAlertType: String, Codable, Sendable {
     case usageThreshold = "usage_threshold"
 }
 
-public enum BillingAlertStatus: String, Codable {
+public enum BillingAlertStatus: String, Codable, Sendable {
     case active
     case triggered
     case archived
 }
 
-public struct BillingAlertUsageThreshold: Codable {
+public struct BillingAlertUsageThreshold: Codable, Sendable {
     /// The filters allow limiting the scope of this usage alert.
     public var filters: [BillingAlertFilter]?
     /// The Billing Meter to which the alert applies.
@@ -46,18 +46,18 @@ public struct BillingAlertUsageThreshold: Codable {
     public var gte: Int?
 }
 
-public struct BillingAlertFilter: Codable {
+public struct BillingAlertFilter: Codable, Sendable {
     /// Limit the scope of the alert to this customer ID.
     public var customer: String?
     /// What the alert filter type is.
     public var type: String?
 }
 
-public enum BillingAlertRecurrence: String, Codable {
+public enum BillingAlertRecurrence: String, Codable, Sendable {
     case oneTime = "one_time"
 }
 
-public struct BillingAlertList: Codable {
+public struct BillingAlertList: Codable, Sendable {
     public var object: String
     public var hasMore: Bool?
     public var url: String?

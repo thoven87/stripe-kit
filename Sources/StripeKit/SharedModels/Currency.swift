@@ -6,7 +6,7 @@
 //
 //
 
-public enum Currency: String, Codable, CaseIterable {
+public enum Currency: String, Codable, Sendable, CaseIterable {
     case usd
     case aed
     case afn

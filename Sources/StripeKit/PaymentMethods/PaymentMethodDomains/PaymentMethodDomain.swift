@@ -9,7 +9,7 @@ import Foundation
 ///
 /// A payment method domain represents a web domain that you have registered with Stripe.
 /// Stripe Elements use registered payment method domains to control where certain payment methods are shown.
-public struct PaymentMethodDomain: Codable {
+public struct PaymentMethodDomain: Codable, Sendable {
     /// Unique identifier for the object.
     public var id: String
     /// String representing the object's type.
@@ -36,24 +36,24 @@ public struct PaymentMethodDomain: Codable {
     public var paypal: PaymentMethodDomainResourcePaymentMethodStatus?
 }
 
-public struct PaymentMethodDomainResourcePaymentMethodStatus: Codable {
+public struct PaymentMethodDomainResourcePaymentMethodStatus: Codable, Sendable {
     /// The status of the payment method on the domain.
     public var status: PaymentMethodDomainStatus?
     /// Contains additional details about the status of a payment method for a specific payment method domain.
     public var statusDetails: PaymentMethodDomainStatusDetails?
 }
 
-public enum PaymentMethodDomainStatus: String, Codable {
+public enum PaymentMethodDomainStatus: String, Codable, Sendable {
     case active
     case inactive
 }
 
-public struct PaymentMethodDomainStatusDetails: Codable {
+public struct PaymentMethodDomainStatusDetails: Codable, Sendable {
     /// The error message associated with the status of the payment method on the domain.
     public var errorMessage: String?
 }
 
-public struct PaymentMethodDomainList: Codable {
+public struct PaymentMethodDomainList: Codable, Sendable {
     public var object: String
     public var hasMore: Bool?
     public var url: String?

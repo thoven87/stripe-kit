@@ -8,7 +8,7 @@ import Foundation
 /// [The CustomerSession Object](https://docs.stripe.com/api/customer_sessions/object)
 ///
 /// A Customer Session allows you to grant Stripe's frontend SDKs client-side access control over a Customer.
-public struct CustomerSession: Codable {
+public struct CustomerSession: Codable, Sendable {
     /// The client secret of this CustomerSession. Used on the client to set up secure access to the given customer.
     public var clientSecret: String
     /// Time at which the object was created.
@@ -25,7 +25,7 @@ public struct CustomerSession: Codable {
     public var object: String
 }
 
-public struct CustomerSessionComponents: Codable {
+public struct CustomerSessionComponents: Codable, Sendable {
     /// Configuration for the buy button component.
     public var buyButton: CustomerSessionComponentConfig?
     /// Configuration for the pricing table component.
@@ -34,19 +34,19 @@ public struct CustomerSessionComponents: Codable {
     public var paymentElement: CustomerSessionPaymentElementConfig?
 }
 
-public struct CustomerSessionComponentConfig: Codable {
+public struct CustomerSessionComponentConfig: Codable, Sendable {
     /// Whether the component is enabled.
     public var enabled: Bool
 }
 
-public struct CustomerSessionPaymentElementConfig: Codable {
+public struct CustomerSessionPaymentElementConfig: Codable, Sendable {
     /// Whether the Payment Element is enabled.
     public var enabled: Bool
     /// Configuration for the Payment Element features.
     public var features: CustomerSessionPaymentElementFeatures?
 }
 
-public struct CustomerSessionPaymentElementFeatures: Codable {
+public struct CustomerSessionPaymentElementFeatures: Codable, Sendable {
     /// Controls whether the Payment Element displays the option to remove a saved payment method.
     public var paymentMethodRedisplay: String?
     /// Controls whether the Payment Element offers to save payment methods.

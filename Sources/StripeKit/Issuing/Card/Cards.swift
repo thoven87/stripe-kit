@@ -8,7 +8,7 @@
 import Foundation
 
 /// The [Card Object](https://stripe.com/docs/api/issuing/cards/object)
-public struct IssuingCard: Codable {
+public struct IssuingCard: Codable, Sendable {
   /// Unique identifier for the object.
   public var id: String
   /// The reason why the card was canceled.
@@ -103,7 +103,7 @@ public struct IssuingCard: Codable {
   }
 }
 
-public struct IssuingCardList: Codable {
+public struct IssuingCardList: Codable, Sendable {
   public var object: String
   public var hasMore: Bool?
   public var url: String?
@@ -122,7 +122,7 @@ public struct IssuingCardList: Codable {
   }
 }
 
-public struct IssuingCardSpendingControls: Codable {
+public struct IssuingCardSpendingControls: Codable, Sendable {
   /// Array of strings containing categories of authorizations permitted on this card.
   public var allowedCategories: [String]?
   /// Array of strings containing categories of authorizations to always decline on this card.
@@ -145,7 +145,7 @@ public struct IssuingCardSpendingControls: Codable {
   }
 }
 
-public enum IssuingCardReplacementReason: String, Codable {
+public enum IssuingCardReplacementReason: String, Codable, Sendable {
   /// The card was lost. This status is only valid if the card it replaces is marked as lost.
   case lost
   /// The card was stolen. This status is only valid if the card it replaces is marked as stolen.
@@ -156,7 +156,7 @@ public enum IssuingCardReplacementReason: String, Codable {
   case expired
 }
 
-public struct IssuingCardShipping: Codable {
+public struct IssuingCardShipping: Codable, Sendable {
   /// Shipping address.
   public var address: Address?
   /// The delivery company that shipped a card.
@@ -211,7 +211,7 @@ public struct IssuingCardShipping: Codable {
   }
 }
 
-public struct IssuingCardShippingCustom: Codable {
+public struct IssuingCardShippingCustom: Codable, Sendable {
   /// A registration number used for customs in Europe. See https://www.gov.uk/eori and https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en.
   public var eoriNumber: String?
 
@@ -220,7 +220,7 @@ public struct IssuingCardShippingCustom: Codable {
   }
 }
 
-public enum IssuingCardShippingCarrier: String, Codable {
+public enum IssuingCardShippingCarrier: String, Codable, Sendable {
   /// FedEx
   case fedex
   /// USPS
@@ -231,7 +231,7 @@ public enum IssuingCardShippingCarrier: String, Codable {
   case dhl
 }
 
-public enum IssuingCardShippingService: String, Codable {
+public enum IssuingCardShippingService: String, Codable, Sendable {
   /// Cards arrive in 5-8 business days.
   case standard
   /// Cards arrive in 4 business days.
@@ -240,7 +240,7 @@ public enum IssuingCardShippingService: String, Codable {
   case priority
 }
 
-public enum IssuingCardShippingStatus: String, Codable {
+public enum IssuingCardShippingStatus: String, Codable, Sendable {
   /// The card is being prepared and has not yet shipped.
   case pending
   /// The card has been shipped. If the card’s shipping carrier does not support tracking, this will be the card’s final status.
@@ -255,14 +255,14 @@ public enum IssuingCardShippingStatus: String, Codable {
   case canceled
 }
 
-public enum IssuingCardShippingType: String, Codable {
+public enum IssuingCardShippingType: String, Codable, Sendable {
   /// Cards are grouped and mailed together.
   case bulk
   /// Cards are sent individually in an envelope.
   case individual
 }
 
-public enum IssuingCardStatus: String, Codable {
+public enum IssuingCardStatus: String, Codable, Sendable {
   /// The card can approve authorizations. If the card is linked to a cardholder with past-due requirements, you may be unable to change the card’s status to ‘active’.
   case active
   /// The card will decline authorizations with the `card_inactive` reason.
@@ -271,14 +271,14 @@ public enum IssuingCardStatus: String, Codable {
   case canceled
 }
 
-public enum IssuingCardType: String, Codable {
+public enum IssuingCardType: String, Codable, Sendable {
   /// No physical card will be printed. The card can be used online and can be added to digital wallets.
   case virtual
   /// A physical card will be printed and shipped. It can be used at physical terminals.
   case physical
 }
 
-public enum IssuingCardCancellationReason: String, Codable {
+public enum IssuingCardCancellationReason: String, Codable, Sendable {
   /// The card was lost.
   case lost
   /// The card was stolen.
@@ -287,7 +287,7 @@ public enum IssuingCardCancellationReason: String, Codable {
   case designRejected = "design_rejected"
 }
 
-public struct IssuingCardWallets: Codable {
+public struct IssuingCardWallets: Codable, Sendable {
   /// Apple Pay Details
   public var applePay: IssuingCardWalletsApplePay?
   /// Google Pay Details
@@ -306,7 +306,7 @@ public struct IssuingCardWallets: Codable {
   }
 }
 
-public struct IssuingCardWalletsApplePay: Codable {
+public struct IssuingCardWalletsApplePay: Codable, Sendable {
   /// Apple Pay Eligibility
   public var eligible: Bool?
   /// Reason the card is ineligible for Apple Pay
@@ -321,7 +321,7 @@ public struct IssuingCardWalletsApplePay: Codable {
   }
 }
 
-public enum IssuingCardWalletsApplePayIneligibleReason: String, Codable {
+public enum IssuingCardWalletsApplePayIneligibleReason: String, Codable, Sendable {
   /// Apple Pay is not supported in the cardholder’s country.
   case unsupportedReason = "unsupported_reason"
   /// Apple Pay is not enabled for your account.
@@ -330,7 +330,7 @@ public enum IssuingCardWalletsApplePayIneligibleReason: String, Codable {
   case missingCardholderContact = "missing_cardholder_contact"
 }
 
-public struct IssuingCardWalletsGooglePay: Codable {
+public struct IssuingCardWalletsGooglePay: Codable, Sendable {
   /// Google Pay Eligibility
   public var eligible: Bool?
   /// Reason the card is ineligible for Google Pay
@@ -345,7 +345,7 @@ public struct IssuingCardWalletsGooglePay: Codable {
   }
 }
 
-public enum IssuingCardWalletsGooglePayIneligibleReason: String, Codable {
+public enum IssuingCardWalletsGooglePayIneligibleReason: String, Codable, Sendable {
   /// Google Pay is not supported in the cardholder’s country.
   case unsupportedReason = "unsupported_reason"
   /// Google Pay is not enabled for your account.

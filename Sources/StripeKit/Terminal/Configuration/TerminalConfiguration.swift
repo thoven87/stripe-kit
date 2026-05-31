@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct TerminalConfiguration: Codable {
+public struct TerminalConfiguration: Codable, Sendable {
   /// Unique identifier for the object.
   public var id: String
   /// An object containing device type specific settings for BBPOS WisePOS E
@@ -42,7 +42,7 @@ public struct TerminalConfiguration: Codable {
   }
 }
 
-public struct TerminalConfigurationBbposWiseposE: Codable {
+public struct TerminalConfigurationBbposWiseposE: Codable, Sendable {
   /// A File ID representing an image you would like displayed on the reader.
   @Expandable<File> public var splashScreen: String?
 
@@ -51,7 +51,7 @@ public struct TerminalConfigurationBbposWiseposE: Codable {
   }
 }
 
-public struct TerminalConfigurationTipping: Codable {
+public struct TerminalConfigurationTipping: Codable, Sendable {
   /// Tipping configuration for AUD
   public var aud: TerminalConfigurationTippingDetails?
   /// Tipping configuration for CAD
@@ -114,7 +114,7 @@ public struct TerminalConfigurationTipping: Codable {
   }
 }
 
-public struct TerminalConfigurationTippingDetails: Codable {
+public struct TerminalConfigurationTippingDetails: Codable, Sendable {
   /// Fixed amounts displayed when collecting a tip
   public var fixedAmounts: [Int]?
   /// Percentages displayed when collecting a tip
@@ -133,7 +133,7 @@ public struct TerminalConfigurationTippingDetails: Codable {
   }
 }
 
-public struct TerminalConfigurationVerifoneP400: Codable {
+public struct TerminalConfigurationVerifoneP400: Codable, Sendable {
   /// A File ID representing an image you would like displayed on the reader.
   @Expandable<File> public var splashScreen: String?
 
@@ -142,7 +142,7 @@ public struct TerminalConfigurationVerifoneP400: Codable {
   }
 }
 
-public struct TerminalConfigurationList: Codable {
+public struct TerminalConfigurationList: Codable, Sendable {
   public var object: String
   public var hasMore: Bool?
   public var url: String?

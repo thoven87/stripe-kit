@@ -14,7 +14,7 @@ public final class StripeError: Codable, Error {
     public let error: _StripeError?
 }
 
-public final class _StripeError: Codable {
+public struct _StripeError: Codable, Sendable & Sendable {
     /// The type of error returned. One of `api_connection_error`, `api_error`, `authentication_error`, `card_error`, `idempotency_error`, `invalid_request_error`, or `rate_limit_error`
     public var type: StripeErrorType?
     /// For card errors, the ID of the failed charge.
@@ -38,7 +38,7 @@ public final class _StripeError: Codable {
 }
 
 // https://stripe.com/docs/api#errors-type
-public enum StripeErrorType: String, Codable {
+public enum StripeErrorType: String, Codable, Sendable {
     /// Failure to connect to Stripe's API.
     case apiConnectionError = "api_connection_error"
     /// API errors cover any other type of problem (e.g., a temporary problem with Stripe's servers), and are extremely uncommon
@@ -59,7 +59,7 @@ public enum StripeErrorType: String, Codable {
 
 // https://stripe.com/docs/api#errors-code
 // https://stripe.com/docs/error-codes
-public enum StripeErrorCode: String, Codable {
+public enum StripeErrorCode: String, Codable, Sendable {
     /// The email address provided for the creation of a deferred account already has an account associated with it. Use the OAuth flow to connect the existing account to your platform.
     case accountAlreadyExists = "account_already_exists"
     /// The country of the business address provided does not match the country of the account. Businesses must be located in the same country as the account.
@@ -236,7 +236,7 @@ public enum StripeErrorCode: String, Codable {
 
 // https://stripe.com/docs/api#errors-decline-code
 // https://stripe.com/docs/declines/codes
-public enum StripeDeclineCode: String, Codable {
+public enum StripeDeclineCode: String, Codable, Sendable {
     /// The payment cannot be authorized.
     case approveWithId = "approve_with_id"
     /// The card has been declined for an unknown reason.

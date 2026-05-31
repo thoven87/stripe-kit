@@ -9,7 +9,7 @@ import Foundation
 ///
 /// PaymentMethodConfigurations control which payment methods are displayed to your customers
 /// when you don't explicitly specify payment method types.
-public struct PaymentMethodConfiguration: Codable {
+public struct PaymentMethodConfiguration: Codable, Sendable {
     /// Unique identifier for the object.
     public var id: String
     /// String representing the object's type.
@@ -28,7 +28,7 @@ public struct PaymentMethodConfiguration: Codable {
     public var parent: String?
 }
 
-public struct PaymentMethodConfigurationList: Codable {
+public struct PaymentMethodConfigurationList: Codable, Sendable {
     public var object: String
     public var hasMore: Bool?
     public var url: String?

@@ -8,7 +8,7 @@ import Foundation
 /// [The Credit Grant Object](https://docs.stripe.com/api/billing/credit-grant/object)
 ///
 /// A credit grant is an API resource that documents the allocation of some billing credits to a customer.
-public struct CreditGrant: Codable {
+public struct CreditGrant: Codable, Sendable {
     /// Unique identifier for the object.
     public var id: String
     /// String representing the object's type.
@@ -39,36 +39,36 @@ public struct CreditGrant: Codable {
     public var voidedAt: Date?
 }
 
-public struct CreditGrantAmount: Codable {
+public struct CreditGrantAmount: Codable, Sendable {
     /// The monetary amount.
     public var monetary: CreditGrantMonetaryAmount?
     /// The type of this amount. Only `monetary` is currently supported.
     public var type: String?
 }
 
-public struct CreditGrantMonetaryAmount: Codable {
+public struct CreditGrantMonetaryAmount: Codable, Sendable {
     /// Three-letter ISO currency code.
     public var currency: Currency?
     /// A positive integer representing the amount.
     public var value: Int?
 }
 
-public struct CreditGrantApplicabilityConfig: Codable {
+public struct CreditGrantApplicabilityConfig: Codable, Sendable {
     /// Specifies the scope of the applicable billing credits.
     public var scope: CreditGrantApplicabilityScope?
 }
 
-public struct CreditGrantApplicabilityScope: Codable {
+public struct CreditGrantApplicabilityScope: Codable, Sendable {
     /// The price type to which credit grants can apply.
     public var priceType: String?
 }
 
-public enum CreditGrantCategory: String, Codable {
+public enum CreditGrantCategory: String, Codable, Sendable {
     case paid
     case promotional
 }
 
-public struct CreditGrantList: Codable {
+public struct CreditGrantList: Codable, Sendable {
     public var object: String
     public var hasMore: Bool?
     public var url: String?
@@ -76,7 +76,7 @@ public struct CreditGrantList: Codable {
 }
 
 /// [The Credit Balance Summary Object](https://docs.stripe.com/api/billing/credit-balance-summary/object)
-public struct CreditBalanceSummary: Codable {
+public struct CreditBalanceSummary: Codable, Sendable {
     /// String representing the object's type.
     public var object: String
     /// The credit balances of the customer.
@@ -87,7 +87,7 @@ public struct CreditBalanceSummary: Codable {
     public var livemode: Bool?
 }
 
-public struct CreditBalance: Codable {
+public struct CreditBalance: Codable, Sendable {
     /// The available monetary balance of the customer.
     public var availableBalance: CreditGrantAmount?
     /// The ledger balance of the customer.
@@ -95,7 +95,7 @@ public struct CreditBalance: Codable {
 }
 
 /// [The Credit Balance Transaction Object](https://docs.stripe.com/api/billing/credit-balance-transaction/object)
-public struct CreditBalanceTransaction: Codable {
+public struct CreditBalanceTransaction: Codable, Sendable {
     /// Unique identifier for the object.
     public var id: String
     /// String representing the object's type.
@@ -120,26 +120,26 @@ public struct CreditBalanceTransaction: Codable {
     public var type: CreditBalanceTransactionType?
 }
 
-public struct CreditBalanceTransactionCredit: Codable {
+public struct CreditBalanceTransactionCredit: Codable, Sendable {
     /// The amount of the credit.
     public var amount: CreditGrantAmount?
     /// The credit grant type.
     public var type: String?
 }
 
-public struct CreditBalanceTransactionDebit: Codable {
+public struct CreditBalanceTransactionDebit: Codable, Sendable {
     /// The amount of the debit.
     public var amount: CreditGrantAmount?
     /// The debit type.
     public var type: String?
 }
 
-public enum CreditBalanceTransactionType: String, Codable {
+public enum CreditBalanceTransactionType: String, Codable, Sendable {
     case credit
     case debit
 }
 
-public struct CreditBalanceTransactionList: Codable {
+public struct CreditBalanceTransactionList: Codable, Sendable {
     public var object: String
     public var hasMore: Bool?
     public var url: String?

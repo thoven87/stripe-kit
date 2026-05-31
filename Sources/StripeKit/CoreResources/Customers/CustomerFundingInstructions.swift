@@ -8,7 +8,7 @@ import Foundation
 /// [Funding Instructions](https://docs.stripe.com/api/customer_balance/funding_instructions)
 ///
 /// Funding instructions for a customer cash balance.
-public struct CustomerFundingInstructions: Codable {
+public struct CustomerFundingInstructions: Codable, Sendable {
     /// String representing the object's type.
     public var object: String
     /// The `bank_transfer` object for funding.
@@ -21,7 +21,7 @@ public struct CustomerFundingInstructions: Codable {
     public var livemode: Bool?
 }
 
-public struct CustomerFundingInstructionsBankTransfer: Codable {
+public struct CustomerFundingInstructionsBankTransfer: Codable, Sendable {
     /// The country of the bank account to fund.
     public var country: String?
     /// A list of financial addresses that can be used to fund a particular balance.
@@ -30,7 +30,7 @@ public struct CustomerFundingInstructionsBankTransfer: Codable {
     public var type: String?
 }
 
-public struct CustomerFundingInstructionsFinancialAddress: Codable {
+public struct CustomerFundingInstructionsFinancialAddress: Codable, Sendable {
     /// The payment networks supported by this address.
     public var supportedNetworks: [String]?
     /// The type of financial address.
@@ -45,26 +45,26 @@ public struct CustomerFundingInstructionsFinancialAddress: Codable {
     public var zengin: CustomerFundingInstructionsZengin?
 }
 
-public struct CustomerFundingInstructionsIBAN: Codable {
+public struct CustomerFundingInstructionsIBAN: Codable, Sendable {
     public var accountHolderName: String?
     public var bic: String?
     public var country: String?
     public var iban: String?
 }
 
-public struct CustomerFundingInstructionsSortCode: Codable {
+public struct CustomerFundingInstructionsSortCode: Codable, Sendable {
     public var accountHolderName: String?
     public var accountNumber: String?
     public var sortCode: String?
 }
 
-public struct CustomerFundingInstructionsSPEI: Codable {
+public struct CustomerFundingInstructionsSPEI: Codable, Sendable {
     public var bankCode: String?
     public var bankName: String?
     public var clabe: String?
 }
 
-public struct CustomerFundingInstructionsZengin: Codable {
+public struct CustomerFundingInstructionsZengin: Codable, Sendable {
     public var accountHolderName: String?
     public var accountNumber: String?
     public var accountType: String?

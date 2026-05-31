@@ -26,10 +26,7 @@ extension HTTPClientRequest.Body {
     }
 }
 
-// @unchecked Sendable: all stored properties are either immutable value types or class instances
-// whose public API is fully thread-safe (HTTPClient) or configured only at init and never mutated
-// thereafter (JSONDecoder). No mutable shared state exists after initialization.
-struct StripeAPIHandler: @unchecked Sendable {
+struct StripeAPIHandler: Sendable {
     private let httpClient: HTTPClient
     private let apiKey: String
     private let decoder = JSONDecoder()

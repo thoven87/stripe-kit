@@ -9,7 +9,7 @@ import Foundation
 ///
 /// ConfirmationTokens help transport client side data collected by Stripe.js or the Elements web UI
 /// to your server for confirming a PaymentIntent or SetupIntent.
-public struct ConfirmationToken: Codable {
+public struct ConfirmationToken: Codable, Sendable {
     /// Unique identifier for the object.
     public var id: String
     /// String representing the object's type.
@@ -36,14 +36,14 @@ public struct ConfirmationToken: Codable {
     public var useStripeSdk: Bool?
 }
 
-public struct ConfirmationTokenPaymentMethodPreview: Codable {
+public struct ConfirmationTokenPaymentMethodPreview: Codable, Sendable {
     /// The type of payment method.
     public var type: String?
     /// Billing information associated with the PaymentMethod.
     public var billingDetails: BillingDetails?
 }
 
-public struct ConfirmationTokenShipping: Codable {
+public struct ConfirmationTokenShipping: Codable, Sendable {
     /// Recipient name.
     public var name: String?
     /// Recipient phone (including extension).
@@ -52,7 +52,7 @@ public struct ConfirmationTokenShipping: Codable {
     public var address: Address?
 }
 
-public enum ConfirmationTokenSetupFutureUsage: String, Codable {
+public enum ConfirmationTokenSetupFutureUsage: String, Codable, Sendable {
     case offSession = "off_session"
     case onSession = "on_session"
 }

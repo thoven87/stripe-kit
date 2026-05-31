@@ -8,7 +8,7 @@ import Foundation
 /// [The Meter Event Adjustment Object](https://docs.stripe.com/api/billing/meter-event-adjustments/object)
 ///
 /// A billing meter event adjustment is a resource that allows you to cancel a meter event.
-public struct MeterEventAdjustment: Codable {
+public struct MeterEventAdjustment: Codable, Sendable {
     /// String representing the object's type.
     public var object: String
     /// Specifies which event to cancel.
@@ -23,16 +23,16 @@ public struct MeterEventAdjustment: Codable {
     public var type: MeterEventAdjustmentType?
 }
 
-public struct MeterEventAdjustmentCancel: Codable {
+public struct MeterEventAdjustmentCancel: Codable, Sendable {
     /// Unique identifier for the event.
     public var identifier: String?
 }
 
-public enum MeterEventAdjustmentStatus: String, Codable {
+public enum MeterEventAdjustmentStatus: String, Codable, Sendable {
     case complete
     case pending
 }
 
-public enum MeterEventAdjustmentType: String, Codable {
+public enum MeterEventAdjustmentType: String, Codable, Sendable {
     case cancel
 }

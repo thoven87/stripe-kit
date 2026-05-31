@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct SessionPaymentMethodOptions: Codable {
+public struct SessionPaymentMethodOptions: Codable, Sendable {
   /// If the Checkout Session’s `payment_method_types` includes `acss_debit`, this hash contains the configurations that will be applied to each payment attempt of that type.
   public var acssDebit: SessionPaymentMethodOptionsAcssDebit?
   /// If the Checkout Session’s `payment_method_types` includes `affirm`, this hash contains the configurations that will be applied to each payment attempt of that type.
@@ -119,7 +119,7 @@ public struct SessionPaymentMethodOptions: Codable {
 }
 
 // MARK: Acss Debit
-public struct SessionPaymentMethodOptionsAcssDebit: Codable {
+public struct SessionPaymentMethodOptionsAcssDebit: Codable, Sendable {
   /// Currency supported by the bank account. Returned when the Session is in `setup` mode.
   public var currency: Currency?
   /// Additional fields for Mandate creation
@@ -145,7 +145,7 @@ public struct SessionPaymentMethodOptionsAcssDebit: Codable {
   }
 }
 
-public struct SessionPaymentMethodOptionsAcssDebitMandateOptions: Codable {
+public struct SessionPaymentMethodOptionsAcssDebitMandateOptions: Codable, Sendable {
   /// A URL for custom mandate text
   public var customMandateUrl: String?
   /// List of Stripe products where this mandate can be selected automatically. Returned when the Session is in setup mode.
@@ -170,14 +170,14 @@ public struct SessionPaymentMethodOptionsAcssDebitMandateOptions: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsAcssDebitMandateOptionsDefaultFor: Codable {
+public enum SessionPaymentMethodOptionsAcssDebitMandateOptionsDefaultFor: Codable, Sendable {
   /// Enables payments for Stripe Invoices. ‘subscription’ must also be provided.
   case invoice
   /// Enables payments for Stripe Subscriptions. ‘invoice’ must also be provided.
   case subscription
 }
 
-public enum SessionPaymentMethodOptionsAcssDebitMandateOptionsPaymentSchedule: String, Codable {
+public enum SessionPaymentMethodOptionsAcssDebitMandateOptionsPaymentSchedule: String, Codable, Sendable {
   /// Payments are initiated at a regular pre-defined interval
   case interval
   /// Payments are initiated sporadically
@@ -186,14 +186,14 @@ public enum SessionPaymentMethodOptionsAcssDebitMandateOptionsPaymentSchedule: S
   case combined
 }
 
-public enum SessionPaymentMethodOptionsAcssDebitMandateOptionsTransactionType: String, Codable {
+public enum SessionPaymentMethodOptionsAcssDebitMandateOptionsTransactionType: String, Codable, Sendable {
   /// Transaction are made for personal reasons
   case personal
   /// Transactions are made for business reasons
   case business
 }
 
-public enum SessionPaymentMethodOptionsAcssDebitSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsAcssDebitSetupFutureUsage: String, Codable, Sendable {
   /// Use `on_session` if you intend to only reuse the payment method when your customer is present in your checkout flow.
   case onSession = "on_session"
   /// Use `off_session` if your customer may or may not be present in your checkout flow.
@@ -202,7 +202,7 @@ public enum SessionPaymentMethodOptionsAcssDebitSetupFutureUsage: String, Codabl
   case `none`
 }
 
-public enum SessionPaymentMethodOptionsAcssDebitVerificationMethod: String, Codable {
+public enum SessionPaymentMethodOptionsAcssDebitVerificationMethod: String, Codable, Sendable {
   /// Instant verification with fallback to microdeposits.
   case automatic
   /// Instant verification.
@@ -212,7 +212,7 @@ public enum SessionPaymentMethodOptionsAcssDebitVerificationMethod: String, Coda
 }
 
 // MARK: Affirm
-public struct SessionPaymentMethodAffirm: Codable {
+public struct SessionPaymentMethodAffirm: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -226,13 +226,13 @@ public struct SessionPaymentMethodAffirm: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsAffirmSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsAffirmSetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: Afterpay Clearpay
-public struct SessionPaymentMethodAfterpayClearpay: Codable {
+public struct SessionPaymentMethodAfterpayClearpay: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -246,13 +246,13 @@ public struct SessionPaymentMethodAfterpayClearpay: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsAfterpayClearpaySetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsAfterpayClearpaySetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: Alipay
-public struct SessionPaymentMethodAlipay: Codable {
+public struct SessionPaymentMethodAlipay: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -265,13 +265,13 @@ public struct SessionPaymentMethodAlipay: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsAlipaySetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsAlipaySetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: Au Becs Debit
-public struct SessionPaymentMethodAuBecsDebit: Codable {
+public struct SessionPaymentMethodAuBecsDebit: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -284,13 +284,13 @@ public struct SessionPaymentMethodAuBecsDebit: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsAuBecsDebitSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsAuBecsDebitSetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: Bacs Debit
-public struct SessionPaymentMethodBacsDebit: Codable {
+public struct SessionPaymentMethodBacsDebit: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -303,7 +303,7 @@ public struct SessionPaymentMethodBacsDebit: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsBacsDebitSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsBacsDebitSetupFutureUsage: String, Codable, Sendable {
   /// Use `on_session` if you intend to only reuse the payment method when your customer is present in your checkout flow.
   case onSession = "on_session"
   /// Use `off_session` if your customer may or may not be present in your checkout flow.
@@ -313,7 +313,7 @@ public enum SessionPaymentMethodOptionsBacsDebitSetupFutureUsage: String, Codabl
 }
 
 // MARK: Bancontact
-public struct SessionPaymentMethodBancontact: Codable {
+public struct SessionPaymentMethodBancontact: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -326,13 +326,13 @@ public struct SessionPaymentMethodBancontact: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsBancontactSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsBancontactSetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: Boleto
-public struct SessionPaymentMethodOptionsBoleto: Codable {
+public struct SessionPaymentMethodOptionsBoleto: Codable, Sendable {
   /// The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set  `expires_after_days` to 2, the Boleto voucher will expire on Wednesday at 23:59 America/Sao_Paulo time.
   public var expiresAfterDays: Int?
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
@@ -351,7 +351,7 @@ public struct SessionPaymentMethodOptionsBoleto: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsBoletoSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsBoletoSetupFutureUsage: String, Codable, Sendable {
   /// Use `on_session` if you intend to only reuse the payment method when your customer is present in your checkout flow.
   case onSession = "on_session"
   /// Use `off_session` if your customer may or may not be present in your checkout flow.
@@ -361,7 +361,7 @@ public enum SessionPaymentMethodOptionsBoletoSetupFutureUsage: String, Codable {
 }
 
 // MARK: Card
-public struct SessionPaymentMethodCard: Codable {
+public struct SessionPaymentMethodCard: Codable, Sendable {
   /// Additional fields for Installments configuration
   public var installments: SessionPaymentMethodCardInstallments?
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
@@ -388,7 +388,7 @@ public struct SessionPaymentMethodCard: Codable {
   }
 }
 
-public struct SessionPaymentMethodCardInstallments: Codable {
+public struct SessionPaymentMethodCardInstallments: Codable, Sendable {
   /// Indicates if installments are enabled
   public var enabled: Bool?
 
@@ -397,7 +397,7 @@ public struct SessionPaymentMethodCardInstallments: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsCardSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsCardSetupFutureUsage: String, Codable, Sendable {
   /// Use `on_session` if you intend to only reuse the payment method when your customer is present in your checkout flow.
   case onSession = "on_session"
   /// Use `off_session` if your customer may or may not be present in your checkout flow.
@@ -407,7 +407,7 @@ public enum SessionPaymentMethodOptionsCardSetupFutureUsage: String, Codable {
 }
 
 // MARK: Cashapp
-public struct SessionPaymentMethodOptionsCashapp: Codable {
+public struct SessionPaymentMethodOptionsCashapp: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -420,13 +420,13 @@ public struct SessionPaymentMethodOptionsCashapp: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsCashappSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsCashappSetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: Customer Balance
-public struct SessionPaymentMethodOptionsCustomerBalance: Codable {
+public struct SessionPaymentMethodOptionsCustomerBalance: Codable, Sendable {
   /// Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
   public var bankTransfer: SessionPaymentMethodOptionsCustomerBalanceBankTransfer?
   /// The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
@@ -449,7 +449,7 @@ public struct SessionPaymentMethodOptionsCustomerBalance: Codable {
   }
 }
 
-public struct SessionPaymentMethodOptionsCustomerBalanceBankTransfer: Codable {
+public struct SessionPaymentMethodOptionsCustomerBalanceBankTransfer: Codable, Sendable {
   /// Configuration for `eu_bank_transfer`
   public var euBankTransfer: SessionPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer?
   /// List of address types that should be returned in the `financial_addresses` response. If not specified, all valid types will be returned.
@@ -473,8 +473,7 @@ public struct SessionPaymentMethodOptionsCustomerBalanceBankTransfer: Codable {
 }
 
 public enum SessionPaymentMethodOptionsCustomerBalanceBankTransferRequestedAddressType: String,
-  Codable
-{
+  Codable, Sendable {
   /// `sort_code` bank account address type
   case sortCode = "sort_code"
   /// `zengin` bank account address type
@@ -487,7 +486,7 @@ public enum SessionPaymentMethodOptionsCustomerBalanceBankTransferRequestedAddre
   case iban
 }
 
-public enum SessionPaymentMethodOptionsCustomerBalanceBankTransferType: String, Codable {
+public enum SessionPaymentMethodOptionsCustomerBalanceBankTransferType: String, Codable, Sendable {
   /// A bank transfer of type `eu_bank_transfer`
   case euBankTransfer = "eu_bank_transfer"
   /// A bank transfer of type `gb_bank_transfer`
@@ -498,7 +497,7 @@ public enum SessionPaymentMethodOptionsCustomerBalanceBankTransferType: String, 
   case mxBankTransfer = "mx_bank_transfer"
 }
 
-public struct SessionPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer: Codable {
+public struct SessionPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer: Codable, Sendable {
   /// The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
   public var country: String?
 
@@ -507,13 +506,13 @@ public struct SessionPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransf
   }
 }
 
-public enum SessionPaymentMethodOptionsCustomerBalanceSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsCustomerBalanceSetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: EPS
-public struct SessionPaymentMethodOptionsEps: Codable {
+public struct SessionPaymentMethodOptionsEps: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -526,13 +525,13 @@ public struct SessionPaymentMethodOptionsEps: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsEpsSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsEpsSetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: FPX
-public struct SessionPaymentMethodOptionsFpx: Codable {
+public struct SessionPaymentMethodOptionsFpx: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -545,13 +544,13 @@ public struct SessionPaymentMethodOptionsFpx: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsFpxSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsFpxSetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: Giropay
-public struct SessionPaymentMethodOptionsGiropay: Codable {
+public struct SessionPaymentMethodOptionsGiropay: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -564,13 +563,13 @@ public struct SessionPaymentMethodOptionsGiropay: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsGiropaySetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsGiropaySetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: Grabpay
-public struct SessionPaymentMethodOptionsGrabpay: Codable {
+public struct SessionPaymentMethodOptionsGrabpay: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -583,13 +582,13 @@ public struct SessionPaymentMethodOptionsGrabpay: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsGrabpaySetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsGrabpaySetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: Ideal
-public struct SessionPaymentMethodOptionsIdeal: Codable {
+public struct SessionPaymentMethodOptionsIdeal: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -602,13 +601,13 @@ public struct SessionPaymentMethodOptionsIdeal: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsIdealSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsIdealSetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: Klarna
-public struct SessionPaymentMethodOptionsKlarna: Codable {
+public struct SessionPaymentMethodOptionsKlarna: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -621,7 +620,7 @@ public struct SessionPaymentMethodOptionsKlarna: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsKlarnaSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsKlarnaSetupFutureUsage: String, Codable, Sendable {
   /// Use `on_session` if you intend to only reuse the payment method when your customer is present in your checkout flow.
   case onSession = "on_session"
   /// Use `off_session` if your customer may or may not be present in your checkout flow.
@@ -631,7 +630,7 @@ public enum SessionPaymentMethodOptionsKlarnaSetupFutureUsage: String, Codable {
 }
 
 // MARK: Konbini
-public struct SessionPaymentMethodOptionsKonbini: Codable {
+public struct SessionPaymentMethodOptionsKonbini: Codable, Sendable {
   /// The number of calendar days (between 1 and 60) after which `Konbini` payment instructions will expire. For example, if a PaymentIntent is confirmed with `Konbini` and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST.
   public var expiresAfterDays: Int?
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
@@ -650,13 +649,13 @@ public struct SessionPaymentMethodOptionsKonbini: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsKonbiniSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsKonbiniSetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: Link
-public struct SessionPaymentMethodOptionsLink: Codable {
+public struct SessionPaymentMethodOptionsLink: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -669,7 +668,7 @@ public struct SessionPaymentMethodOptionsLink: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsLinkSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsLinkSetupFutureUsage: String, Codable, Sendable {
   /// Use `off_session` if your customer may or may not be present in your checkout flow.
   case offSession = "off_session"
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
@@ -677,7 +676,7 @@ public enum SessionPaymentMethodOptionsLinkSetupFutureUsage: String, Codable {
 }
 
 // MARK: OXXO
-public struct SessionPaymentMethodOptionsOXXO: Codable {
+public struct SessionPaymentMethodOptionsOXXO: Codable, Sendable {
   /// The number of calendar days before an OXXO invoice expires. For example, if you create an OXXO invoice on Monday and you set `expires_after_days` to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
   public var expiresAfterDays: Int?
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
@@ -696,13 +695,13 @@ public struct SessionPaymentMethodOptionsOXXO: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsOXXOSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsOXXOSetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: P24
-public struct SessionPaymentMethodOptionsP24: Codable {
+public struct SessionPaymentMethodOptionsP24: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -715,13 +714,13 @@ public struct SessionPaymentMethodOptionsP24: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsP24SetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsP24SetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: Paynow
-public struct SessionPaymentMethodOptionsPaynow: Codable {
+public struct SessionPaymentMethodOptionsPaynow: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -734,7 +733,7 @@ public struct SessionPaymentMethodOptionsPaynow: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsPaynowSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsPaynowSetupFutureUsage: String, Codable, Sendable {
   /// Use `off_session` if your customer may or may not be present in your checkout flow.
   case offSession = "off_session"
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
@@ -742,7 +741,7 @@ public enum SessionPaymentMethodOptionsPaynowSetupFutureUsage: String, Codable {
 }
 
 // MARK: Pix
-public struct SessionPaymentMethodOptionsPix: Codable {
+public struct SessionPaymentMethodOptionsPix: Codable, Sendable {
   /// The number of seconds after which Pix payment will expire.
   public var expiresAfterSeconds: Int?
 
@@ -752,7 +751,7 @@ public struct SessionPaymentMethodOptionsPix: Codable {
 }
 
 // MARK: SepaDebit
-public struct SessionPaymentMethodOptionsSepaDebit: Codable {
+public struct SessionPaymentMethodOptionsSepaDebit: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -765,7 +764,7 @@ public struct SessionPaymentMethodOptionsSepaDebit: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsSepaDebitSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsSepaDebitSetupFutureUsage: String, Codable, Sendable {
   /// Use `on_session` if you intend to only reuse the payment method when your customer is present in your checkout flow.
   case onSession = "on_session"
   /// Use `off_session` if your customer may or may not be present in your checkout flow.
@@ -775,7 +774,7 @@ public enum SessionPaymentMethodOptionsSepaDebitSetupFutureUsage: String, Codabl
 }
 
 // MARK: Sofort
-public struct SessionPaymentMethodOptionsSofort: Codable {
+public struct SessionPaymentMethodOptionsSofort: Codable, Sendable {
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
   ///
   /// Providing this parameter will attach the payment method to the PaymentIntent’s Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be attached to a Customer after the transaction completes.
@@ -788,13 +787,13 @@ public struct SessionPaymentMethodOptionsSofort: Codable {
   }
 }
 
-public enum SessionPaymentMethodOptionsSofortSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsSofortSetupFutureUsage: String, Codable, Sendable {
   /// Use `none` if you do not intend to reuse this payment method and want to override the top-level `setup_future_usage` value for this payment method.
   case `none`
 }
 
 // MARK: US Bank Account
-public struct SessionPaymentMethodOptionsUSBankAccount: Codable {
+public struct SessionPaymentMethodOptionsUSBankAccount: Codable, Sendable {
   /// Additional fields for Financial Connections Session creation
   public var financialConnections: SessionPaymentMethodOptionsUSBankAccountFinancialConnections?
   /// Indicates that you intend to make future payments with this PaymentIntent’s payment method.
@@ -817,7 +816,7 @@ public struct SessionPaymentMethodOptionsUSBankAccount: Codable {
   }
 }
 
-public struct SessionPaymentMethodOptionsUSBankAccountFinancialConnections: Codable {
+public struct SessionPaymentMethodOptionsUSBankAccountFinancialConnections: Codable, Sendable {
   /// The list of permissions to request. The p`ayment_method` permission must be included.
   public var permissions: [SessionPaymentMethodOptionsUSBankAccountFinancialConnectionsPermission]?
 
@@ -828,7 +827,7 @@ public struct SessionPaymentMethodOptionsUSBankAccountFinancialConnections: Coda
   }
 }
 
-public enum SessionPaymentMethodOptionsUSBankAccountFinancialConnectionsPermission: String, Codable
+public enum SessionPaymentMethodOptionsUSBankAccountFinancialConnectionsPermission: String, Codable, Sendable
 {
   /// Allows the creation of a payment method from the account.
   case paymentMethod = "payment_method"
@@ -840,7 +839,7 @@ public enum SessionPaymentMethodOptionsUSBankAccountFinancialConnectionsPermissi
   case ownership
 }
 
-public enum SessionPaymentMethodOptionsUSBankAccountSetupFutureUsage: String, Codable {
+public enum SessionPaymentMethodOptionsUSBankAccountSetupFutureUsage: String, Codable, Sendable {
   /// Use `on_session` if you intend to only reuse the payment method when your customer is present in your checkout flow.
   case onSession = "on_session"
   /// Use `off_session` if your customer may or may not be present in your checkout flow.
@@ -849,7 +848,7 @@ public enum SessionPaymentMethodOptionsUSBankAccountSetupFutureUsage: String, Co
   case `none`
 }
 
-public enum SessionPaymentMethodOptionsUSBankAccountVerificationMethod: String, Codable {
+public enum SessionPaymentMethodOptionsUSBankAccountVerificationMethod: String, Codable, Sendable {
   /// Instant verification with fallback to microdeposits.
   case automatic
   /// Instant verification only.

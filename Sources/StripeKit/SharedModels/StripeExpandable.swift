@@ -98,16 +98,19 @@ public struct Expandable<Model: Codable>: Codable {
     }
 }
 
-// ExpandableState holds String (always Sendable) or Model (Sendable when Model: Sendable).
-// The indirect heap box for .expanded is not shared mutable state — each instance owns its box.
+// Expandable.ExpandableState is fileprivate so we can add a conditional Sendable conformance at
+// file scope. The indirect heap box for .expanded is per-instance, not shared mutable state.
 extension Expandable.ExpandableState: Sendable where Model: Sendable {}
 extension Expandable: Sendable where Model: Sendable {}
 
 @propertyWrapper
-public struct DynamicExpandable<A: Codable, B: Codable>: Codable {
-    private enum ExpandableState {
+public struct DynamicExpandable<A: Codable & Sendable, B: Codable & Sendable>: Codable {
+    // fileprivate so we can add a Sendable conformance at file scope.
+    // .expanded stores `any Codable & Sendable`: A and B are constrained to Sendable, so storing
+    // them into this existential is valid, and the existential itself is Sendable by definition.
+    fileprivate enum ExpandableState {
         case unexpanded(String)
-        indirect case expanded(any Codable)
+        indirect case expanded(any Codable & Sendable)
         case empty
     }
 
@@ -201,13 +204,10 @@ public struct DynamicExpandable<A: Codable, B: Codable>: Codable {
     }
 }
 
-// @unchecked Sendable: Swift requires all generic type parameters to be constrained to Sendable
-// for a verified conformance, but adding A: Sendable, B: Sendable here would cascade into the
-// Stripe model graph where Customer ↔ BankAccount ↔ Card form a mutual Sendable reference cycle
-// (each model's @Expandable fields require each other to be Sendable) that Swift cannot resolve.
-// The .expanded case stores `any Codable & Sendable`, ensuring all stored values are Sendable.
-// The @unchecked is a type-system limitation, not a safety concern.
-extension DynamicExpandable: @unchecked Sendable {}
+// All cases store String, `any Codable & Sendable`, or nothing — unconditionally Sendable.
+// A and B no longer appear as associated value types in the cases themselves.
+extension DynamicExpandable.ExpandableState: Sendable {}
+extension DynamicExpandable: Sendable {}
 
 @propertyWrapper
 public struct ExpandableCollection<Model: Codable>: Codable {
@@ -284,7 +284,6 @@ public struct ExpandableCollection<Model: Codable>: Codable {
     }
 }
 
-// Same reasoning as Expandable.ExpandableState above.
 extension ExpandableCollection.ExpandableState: Sendable where Model: Sendable {}
 extension ExpandableCollection: Sendable where Model: Sendable {}
 

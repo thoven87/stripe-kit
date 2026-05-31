@@ -9,7 +9,7 @@
 import Foundation
 
 /// The [Product Object](https://stripe.com/docs/api/products/object) .
-public struct Product: Codable {
+public struct Product: Codable, Sendable {
   /// Unique identifier for the object.
   public var id: String
   /// Whether the product is currently available for purchase.
@@ -88,7 +88,7 @@ public struct Product: Codable {
   }
 }
 
-public struct MarketingFeature: Codable {
+public struct MarketingFeature: Codable, Sendable {
   public var name: String?
 
   public init(name: String? = nil) {
@@ -96,7 +96,7 @@ public struct MarketingFeature: Codable {
   }
 }
 
-public struct ProductPackageDimensions: Codable {
+public struct ProductPackageDimensions: Codable, Sendable {
   /// Height, in inches.
   public var height: Decimal?
   /// Length, in inches.
@@ -119,7 +119,7 @@ public struct ProductPackageDimensions: Codable {
   }
 }
 
-public struct ProductSearchResult: Codable {
+public struct ProductSearchResult: Codable, Sendable {
   /// A string describing the object type returned.
   public var object: String
   /// A list of products, paginated by any request parameters.
@@ -150,7 +150,7 @@ public struct ProductSearchResult: Codable {
   }
 }
 
-public struct ProductsList: Codable {
+public struct ProductsList: Codable, Sendable {
   public var object: String
   public var hasMore: Bool?
   public var url: String?
