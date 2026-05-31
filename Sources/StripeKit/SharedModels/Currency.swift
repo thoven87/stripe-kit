@@ -61,7 +61,6 @@ public enum Currency: String, Codable, CaseIterable {
     case gyd
     case hkd
     case hnl
-    case hrk
     case htg
     case huf
     case idr
@@ -91,7 +90,6 @@ public enum Currency: String, Codable, CaseIterable {
     case mmk
     case mnt
     case mop
-    case mro
     case mur
     case mvr
     case mwk
@@ -123,7 +121,7 @@ public enum Currency: String, Codable, CaseIterable {
     case sek
     case sgd
     case shp
-    case sll
+    case sle
     case sos
     case srd
     case std
@@ -145,6 +143,7 @@ public enum Currency: String, Codable, CaseIterable {
     case wst
     case xaf
     case xcd
+    case xcg
     case xof
     case xpf
     case yer

@@ -1,5 +1,5 @@
 # StripeKit
-![](https://img.shields.io/badge/Swift-5.7-lightgrey.svg?style=svg)
+![](https://img.shields.io/badge/Swift-6.2-lightgrey.svg?style=svg)
 ![](https://img.shields.io/badge/SwiftNio-2-lightgrey.svg?style=svg)
 ![Test](https://github.com/vapor-community/stripe-kit/workflows/Test/badge.svg)
 
@@ -7,13 +7,13 @@
 
 ## Version support
 
-Stripe API version `2022-11-15` -> StripeKit: 22.0.0
+Stripe API version `2026-05-27` -> StripeKit: 22.0.0
 
 ## Installation
 To start using StripeKit, in your `Package.swift`, add the following
 
 ```swift
-.package(url: "https://github.com/vapor-community/stripe-kit.git", from: "22.0.0")
+.package(url: "https://github.com/thoven87/stripe-kit.git", from: "26.0.0")
 ```
 
 ## Using the API
@@ -288,6 +288,7 @@ extension StripeSignatureError: AbortError {
 * [x] Balance Transactions
 * [x] Charges
 * [x] Customers
+* [x] Customer Sessions
 * [x] Disputes  
 * [x] Events
 * [x] Files
@@ -298,13 +299,17 @@ extension StripeSignatureError: AbortError {
 * [x] SetupAttempts
 * [x] Payouts
 * [x] Refunds
+* [x] Confirmation Tokens
 * [x] Tokens
 * [x] EphemeralKeys
 ---
 ### Payment Methods
 * [x] Payment Methods
+* [x] Payment Method Configurations
+* [x] Payment Method Domains
 * [x] Bank Accounts
 * [x] Cash Balance
+* [x] Cash Balance Transactions
 * [x] Cards
 * [x] Sources
 ---
@@ -325,23 +330,37 @@ extension StripeSignatureError: AbortError {
 * [x] Payment Links
 ---
 ### Billing
+* [x] Alerts
 * [x] Credit Notes
+* [x] Credit Grants
+* [x] Credit Balance Summary
+* [x] Credit Balance Transactions
 * [x] Customer Balance Transactions
 * [x] Customer Portal
 * [x] Customer Tax IDs
 * [x] Invoices
 * [x] Invoice Items
+* [x] Invoice Rendering Templates
+* [x] Meters
+* [x] Meter Events
+* [x] Meter Event Adjustments
 * [x] Plans
 * [x] Quotes
 * [x] Quote Line Items
 * [x] Subscriptions
-* [x] Subscription items
+* [x] Subscription Items
 * [x] Subscription Schedule
 * [x] Test Clocks
 * [x] Usage Records
 ---
+### Entitlements
+* [x] Features
+* [x] Product Features
+* [x] Active Entitlements
+---
 ### Connect
 * [x] Account
+* [x] Account Login Links
 * [x] Account Links
 * [x] Account Sessions
 * [x] Application Fees
