@@ -1,27 +1,21 @@
-import XCTest
+import Testing
 
 @testable import StripeKit
 
-final class QueryEncodingTests: XCTestCase {
+@Suite struct QueryEncodingTests {
 
-  func testSimpleQueryEncodedProperly() throws {
-    let query = [
-      "email": "accounting+furnitures@hmm.test"
-    ]
-    XCTAssertEqual(query.queryParameters, "email=accounting%2Bfurnitures@hmm.test")
-  }
+    @Test func simpleQueryEncodedProperly() {
+        let query = ["email": "accounting+furnitures@hmm.test"]
+        #expect(query.queryParameters == "email=accounting%2Bfurnitures@hmm.test")
+    }
 
-  func testNestedDictionaryQueryEncodedProperly() throws {
-    let query: [String: Any] = [
-      "shipping": ["name": "Hamlin, Hamlin & McGill"]
-    ]
-    XCTAssertEqual(query.queryParameters, "shipping[name]=Hamlin,%20Hamlin%20%26%20McGill")
-  }
+    @Test func nestedDictionaryQueryEncodedProperly() {
+        let query: [String: Any] = ["shipping": ["name": "Hamlin, Hamlin & McGill"]]
+        #expect(query.queryParameters == "shipping[name]=Hamlin,%20Hamlin%20%26%20McGill")
+    }
 
-  func testNestedArrayQueryEncodedProperly() throws {
-    let query: [String: Any] = [
-      "items": [["plan": "plan_b"], ["plan": "plan_nine"]]
-    ]
-    XCTAssertEqual(query.queryParameters, "items[0][plan]=plan_b&items[1][plan]=plan_nine")
-  }
+    @Test func nestedArrayQueryEncodedProperly() {
+        let query: [String: Any] = ["items": [["plan": "plan_b"], ["plan": "plan_nine"]]]
+        #expect(query.queryParameters == "items[0][plan]=plan_b&items[1][plan]=plan_nine")
+    }
 }
