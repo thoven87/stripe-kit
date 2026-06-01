@@ -130,6 +130,10 @@ public enum MeterDefaultAggregationFormula: String, Codable, Sendable {
     case count
     /// Sum each event's value.
     case sum
+    /// Use the last event's value in the period.
+    case last
+    /// Use the maximum event's value in the period.
+    case max
 }
 
 public struct MeterList: Codable, Sendable {
