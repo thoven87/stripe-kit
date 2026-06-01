@@ -26,10 +26,16 @@ public struct SubscriptionItem: Codable, Sendable {
     public var billingThresholds: SubscriptionItemBillingThresholds?
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
     public var created: Date
+    /// End of the current period that the subscription has been invoiced for.
+    public var currentPeriodEnd: Date?
+    /// Start of the current period that the subscription has been invoiced for.
+    public var currentPeriodStart: Date?
     /// The tax rates which apply to this `subscription_item`. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
     public var taxRates: [TaxRate]?
     /// The discounts applied to the subscription item.
     public var discounts: [String]?
+    /// The plan the customer is subscribed to (legacy field; use `price` instead).
+    public var plan: Plan?
 
     public init(
         id: String,
@@ -40,8 +46,11 @@ public struct SubscriptionItem: Codable, Sendable {
         object: String,
         billingThresholds: SubscriptionItemBillingThresholds? = nil,
         created: Date,
+        currentPeriodEnd: Date? = nil,
+        currentPeriodStart: Date? = nil,
         taxRates: [TaxRate]? = nil,
-        discounts: [String]? = nil
+        discounts: [String]? = nil,
+        plan: Plan? = nil
     ) {
         self.id = id
         self.metadata = metadata
@@ -51,8 +60,11 @@ public struct SubscriptionItem: Codable, Sendable {
         self.object = object
         self.billingThresholds = billingThresholds
         self.created = created
+        self.currentPeriodEnd = currentPeriodEnd
+        self.currentPeriodStart = currentPeriodStart
         self.taxRates = taxRates
         self.discounts = discounts
+        self.plan = plan
     }
 }
 

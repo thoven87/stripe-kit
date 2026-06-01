@@ -56,6 +56,8 @@ public struct Customer: Codable, Sendable {
     public var nextInvoiceSequence: Int?
     /// The customer's preferred locales (languages), ordered by preference
     public var preferredLocales: [String]?
+    /// The account (if any) this customer belongs to. Stripe-managed accounts only.
+    public var customerAccount: String?
     /// The customer's current discounts.
     public var discounts: [String]?
     /// The customer’s payment sources, if any.

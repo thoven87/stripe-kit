@@ -56,6 +56,12 @@ public struct Subscription: Codable, Sendable {
     public var automaticTax: SubscriptionAutomaticTax
     /// Determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices.
     public var billingCycleAnchor: Date?
+    /// Granular configuration for the billing cycle anchor.
+    public var billingCycleAnchorConfig: [String: String]?
+    /// The billing mode for this subscription.
+    public var billingMode: SubscriptionBillingMode?
+    /// Billing schedules attached to this subscription.
+    public var billingSchedules: [String]?
     /// Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
     public var billingThresholds: SubscriptionBillingThresholds?
     /// A date in the future at which the subscription will automatically get canceled
@@ -80,6 +86,10 @@ public struct Subscription: Codable, Sendable {
     public var discounts: [String]?
     /// All invoices will be billed using the specified settings.
     public var invoiceSettings: SubscriptionInvoiceSettings?
+    /// Settings related to managed payments on this subscription.
+    public var managedPayments: SubscriptionManagedPayments?
+    /// The account (if any) the subscription's payments and invoices will be attributed to for tax purposes. Stripe-managed accounts only.
+    public var customerAccount: String?
     /// If the subscription has ended, the date the subscription ended.
     public var endedAt: Date?
     /// Has the value true if the object exists in live mode or the value false if the object exists in test mode.
@@ -108,6 +118,10 @@ public struct Subscription: Codable, Sendable {
     public var trialSettings: SubscriptionTrialSettings?
     /// If the subscription has a trial, the beginning of that trial.
     public var trialStart: Date?
+    /// The plan (legacy) of the first item in this subscription, if the subscription has a single plan.
+    public var plan: Plan?
+    /// The quantity (legacy) of the plan to which the customer is subscribed, if the subscription only contains a single plan.
+    public var quantity: Int?
 
     public init(
         id: String,
@@ -207,10 +221,48 @@ public struct Subscription: Codable, Sendable {
 public struct SubscriptionAutomaticTax: Codable, Sendable {
     /// Whether Stripe automatically computes tax on this subscription.
     public var enabled: Bool?
+    /// If Stripe disabled automatic tax, this enum describes why.
+    public var disabledReason: String?
+    /// The connected account being used for automatic tax calculation. Present when `liability.type` is `account`.
+    public var liability: SubscriptionAutomaticTaxLiability?
 
-    public init(enabled: Bool? = nil) {
+    public init(
+        enabled: Bool? = nil,
+        disabledReason: String? = nil,
+        liability: SubscriptionAutomaticTaxLiability? = nil
+    ) {
         self.enabled = enabled
+        self.disabledReason = disabledReason
+        self.liability = liability
     }
+}
+
+public struct SubscriptionAutomaticTaxLiability: Codable, Sendable {
+    /// The type of the liability. One of `self` or `account`.
+    public var type: String?
+    /// The connected account being used when `type` is `account`.
+    public var account: String?
+}
+
+/// The billing mode for a subscription (introduced in Dahlia).
+public struct SubscriptionBillingMode: Codable, Sendable {
+    /// The type of billing mode. Currently `flexible`.
+    public var type: String?
+    /// Present when `type` is `flexible`.
+    public var flexible: SubscriptionBillingModeFlexible?
+    /// When the billing mode was last updated.
+    public var updatedAt: Date?
+}
+
+public struct SubscriptionBillingModeFlexible: Codable, Sendable {
+    /// How prorations are handled. One of `included` or `separate`.
+    public var prorationsDiscounts: String?
+}
+
+/// Settings related to managed payments on this subscription.
+public struct SubscriptionManagedPayments: Codable, Sendable {
+    /// Whether managed payments are enabled for this subscription.
+    public var enabled: Bool?
 }
 
 public struct SubscriptionBillingThresholds: Codable, Sendable {
