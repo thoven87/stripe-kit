@@ -16,10 +16,6 @@ public struct Subscription: Codable, Sendable {
     public var cancelAtPeriodEnd: Bool?
     /// Three-letter ISO currency code, in lowercase. Must be a supported currency.
     public var currency: Currency?
-    /// End of the current period that the subscription has been invoiced for. At the end of this period, a new invoice will be created.
-    public var currentPeriodEnd: Date?
-    /// Start of the current period that the subscription has been invoiced for.
-    public var currentPeriodStart: Date?
     /// ID of the customer who owns the subscription.
     @Expandable<Customer> public var customer: String?
     /// ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer’s invoice settings.
@@ -127,8 +123,6 @@ public struct Subscription: Codable, Sendable {
         id: String,
         cancelAtPeriodEnd: Bool? = nil,
         currency: Currency? = nil,
-        currentPeriodEnd: Date? = nil,
-        currentPeriodStart: Date? = nil,
         customer: String? = nil,
         defaultPaymentMethod: String? = nil,
         description: String? = nil,
@@ -173,8 +167,6 @@ public struct Subscription: Codable, Sendable {
         self.id = id
         self.cancelAtPeriodEnd = cancelAtPeriodEnd
         self.currency = currency
-        self.currentPeriodEnd = currentPeriodEnd
-        self.currentPeriodStart = currentPeriodStart
         self._customer = Expandable(id: customer)
         self._defaultPaymentMethod = Expandable(id: defaultPaymentMethod)
         self.description = description

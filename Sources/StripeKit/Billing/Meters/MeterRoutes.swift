@@ -44,7 +44,10 @@ public protocol MeterRoutes: StripeAPIRoute {
     func retrieve(id: String) async throws -> Meter
 
     /// Returns a list of your billing meters.
-    func listAll() async throws -> MeterList
+    ///
+    /// - Parameter filter: A dictionary of query parameters. Supports `status` (`active`/`inactive`),
+    ///   `limit`, `ending_before`, and `starting_after`.
+    func listAll(filter: [String: Any]?) async throws -> MeterList
 
     /// Deactivates a billing meter.
     ///
@@ -143,8 +146,13 @@ public struct StripeMeterRoutes: MeterRoutes {
         try await apiHandler.send(method: .GET, path: "\(meters)/\(id)", headers: headers)
     }
 
-    public func listAll() async throws -> MeterList {
-        try await apiHandler.send(method: .GET, path: meters, headers: headers)
+    public func listAll(filter: [String: Any]? = nil) async throws -> MeterList {
+        var queryParams = ""
+        if let filter {
+            queryParams = filter.queryParameters
+        }
+        return try await apiHandler.send(
+            method: .GET, path: meters, query: queryParams, headers: headers)
     }
 
     public func deactivate(id: String) async throws -> Meter {

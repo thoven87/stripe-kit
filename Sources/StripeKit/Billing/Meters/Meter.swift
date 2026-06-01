@@ -36,6 +36,36 @@ public struct Meter: Codable, Sendable {
     public var updated: Date
     /// Fields that specify how to calculate a meter event's value.
     public var valueSettings: MeterValueSettings
+
+    public init(
+        id: String,
+        object: String,
+        created: Date? = nil,
+        customerMapping: MeterCustomerMapping,
+        defaultAggregation: MeterDefaultAggregation,
+        displayName: String,
+        eventName: String,
+        eventTimeWindow: MeterEventTimeWindow? = nil,
+        livemode: Bool? = nil,
+        status: MeterStatus,
+        statusTransitions: MeterStatusTransitions? = nil,
+        updated: Date,
+        valueSettings: MeterValueSettings
+    ) {
+        self.id = id
+        self.object = object
+        self.created = created
+        self.customerMapping = customerMapping
+        self.defaultAggregation = defaultAggregation
+        self.displayName = displayName
+        self.eventName = eventName
+        self.eventTimeWindow = eventTimeWindow
+        self.livemode = livemode
+        self.status = status
+        self.statusTransitions = statusTransitions
+        self.updated = updated
+        self.valueSettings = valueSettings
+    }
 }
 
 public struct MeterCustomerMapping: Codable, Sendable {
@@ -43,6 +73,11 @@ public struct MeterCustomerMapping: Codable, Sendable {
     public var eventPayloadKey: String
     /// The method for mapping a meter event to a customer.
     public var type: MeterCustomerMappingType
+
+    public init(eventPayloadKey: String, type: MeterCustomerMappingType) {
+        self.eventPayloadKey = eventPayloadKey
+        self.type = type
+    }
 }
 
 public enum MeterCustomerMappingType: String, Codable, Sendable {
@@ -67,15 +102,27 @@ public enum MeterStatus: String, Codable, Sendable {
 public struct MeterStatusTransitions: Codable, Sendable {
     /// The time the meter was deactivated, if any. Measured in seconds since Unix epoch.
     public var deactivatedAt: Date?
+
+    public init(deactivatedAt: Date? = nil) {
+        self.deactivatedAt = deactivatedAt
+    }
 }
 
 public struct MeterValueSettings: Codable, Sendable {
     /// The key in the meter event payload to use as the value for this meter.
     public var eventPayloadKey: String
+
+    public init(eventPayloadKey: String) {
+        self.eventPayloadKey = eventPayloadKey
+    }
 }
 
 public struct MeterDefaultAggregation: Codable, Sendable {
     public var formula: MeterDefaultAggregationFormula
+
+    public init(formula: MeterDefaultAggregationFormula) {
+        self.formula = formula
+    }
 }
 
 public enum MeterDefaultAggregationFormula: String, Codable, Sendable {
