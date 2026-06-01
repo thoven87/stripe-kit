@@ -9,7 +9,7 @@ A Swift package for communicating with the [Stripe API](https://stripe.com) in S
 
 ## Stripe API Version
 
-`2026-05-27`
+`2026-05-27.dahlia`
 
 ## Requirements
 

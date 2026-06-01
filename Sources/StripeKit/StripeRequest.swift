@@ -47,7 +47,7 @@ struct StripeAPIHandler: Sendable {
     ) async throws -> T {
 
         var _headers: HTTPHeaders = [
-            "Stripe-Version": "2026-05-27",
+            "Stripe-Version": "2026-05-27.dahlia",
             "Authorization": "Bearer \(apiKey)",
             "Content-Type": "application/x-www-form-urlencoded",
         ]

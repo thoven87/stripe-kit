@@ -10,11 +10,31 @@ import Foundation
 
 /// Stripe uses conventional HTTP response codes to indicate the success or failure of an API request. In general: Codes in the `2xx` range indicate success. Codes in the `4xx` range indicate an error that failed given the information provided (e.g., a required parameter was omitted, a charge failed, etc.). Codes in the `5xx` range indicate an error with Stripe's servers (these are rare).
 /// Some `4xx` errors that could be handled programmatically (e.g., a card is declined) include an error code that briefly explains the error reported.
-public final class StripeError: Codable, Error {
+public final class StripeError: Codable, Error, Sendable {
     public let error: _StripeError?
 }
 
-public struct _StripeError: Codable, Sendable & Sendable {
+extension StripeError: LocalizedError {
+    /// The human-readable message returned by Stripe (suitable for display).
+    public var errorDescription: String? {
+        error?.message
+    }
+}
+
+extension StripeError: CustomStringConvertible {
+    public var description: String {
+        var parts: [String] = []
+        if let type = error?.type?.rawValue { parts.append("type: \(type)") }
+        if let message = error?.message { parts.append("message: \(message)") }
+        if let code = error?.code?.rawValue { parts.append("code: \(code)") }
+        if let param = error?.param { parts.append("param: \(param)") }
+        if let dc = error?.declineCode?.rawValue { parts.append("decline_code: \(dc)") }
+        return parts.isEmpty
+            ? "StripeError(unknown)" : "StripeError(\(parts.joined(separator: ", ")))"
+    }
+}
+
+public struct _StripeError: Codable, Sendable {
     /// The type of error returned. One of `api_connection_error`, `api_error`, `authentication_error`, `card_error`, `idempotency_error`, `invalid_request_error`, or `rate_limit_error`
     public var type: StripeErrorType?
     /// For card errors, the ID of the failed charge.
