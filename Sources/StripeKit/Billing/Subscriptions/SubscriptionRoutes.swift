@@ -49,6 +49,10 @@ public protocol SubscriptionRoutes: StripeAPIRoute {
     ///   - trialFromPlan: Indicates if a plan’s `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to false. Setting this flag to true together with `trial_end` is not allowed.
     ///   - trialPeriodDays: Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan.
     ///   - trialSettings: Settings related to subscription trials.
+    ///   - discounts: The coupons or promotion codes to apply to the subscription. Pass an empty array to remove all discounts. Supersedes `coupon` and `promotionCode`.
+    ///   - invoiceSettings: All invoices will be billed using the specified settings. Useful for setting the invoice issuer for Connect.
+    ///   - billingCycleAnchorConfig: Granular billing cycle anchor configuration.
+    ///   - billingMode: The billing mode for this subscription. Pass `["type": "flexible"]` to opt into flexible billing mode (default as of API `2025-09-30.clover`). Requires API version `2025-06-30.basil` or later.
     ///   - expand: Specifies which fields in the response should be expanded.
     /// - Returns: The newly created Subscription object, if the call succeeded. If the attempted charge fails, the subscription is created in an incomplete status.
     func create(
@@ -86,6 +90,7 @@ public protocol SubscriptionRoutes: StripeAPIRoute {
         discounts: [[String: Any]]?,
         invoiceSettings: [String: Any]?,
         billingCycleAnchorConfig: [String: Any]?,
+        billingMode: [String: Any]?,
         expand: [String]?
     ) async throws -> Subscription
 
@@ -144,6 +149,9 @@ public protocol SubscriptionRoutes: StripeAPIRoute {
     ///   - trialEnd: Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, `trial_end` will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer’s trial immediately. Can be at most two years from `billing_cycle_anchor`.
     ///   - trialFromPlan: Indicates if a plan’s `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to true together with `trial_end` is not allowed.
     ///   - trialSettings: Settings related to subscription trials.
+    ///   - discounts: The coupons or promotion codes to apply to the subscription. Pass an empty array to remove all discounts. Supersedes `coupon` and `promotionCode`.
+    ///   - invoiceSettings: All invoices will be billed using the specified settings. Useful for setting the invoice issuer for Connect.
+    ///   - billingMode: The billing mode for this subscription. Pass `["type": "flexible"]` to opt into flexible billing mode (default as of API `2025-09-30.clover`). Requires API version `2025-06-30.basil` or later.
     ///   - expand: Specifies which fields in the response should be expanded.
     /// - Returns: The newly updated Subscription object, if the call succeeded. If `payment_behavior` is `error_if_incomplete` and a charge is required for the update and it fails, this call returns an error, and the subscription update does not go into effect.
     func update(
@@ -178,6 +186,7 @@ public protocol SubscriptionRoutes: StripeAPIRoute {
         trialSettings: [String: Any]?,
         discounts: [[String: Any]]?,
         invoiceSettings: [String: Any]?,
+        billingMode: [String: Any]?,
         expand: [String]?
     ) async throws -> Subscription
 
@@ -279,6 +288,7 @@ public struct StripeSubscriptionRoutes: SubscriptionRoutes {
         discounts: [[String: Any]]? = nil,
         invoiceSettings: [String: Any]? = nil,
         billingCycleAnchorConfig: [String: Any]? = nil,
+        billingMode: [String: Any]? = nil,
         expand: [String]? = nil
     ) async throws -> Subscription {
 
@@ -417,6 +427,10 @@ public struct StripeSubscriptionRoutes: SubscriptionRoutes {
             billingCycleAnchorConfig.forEach { body["billing_cycle_anchor_config[\($0)]"] = $1 }
         }
 
+        if let billingMode {
+            billingMode.forEach { body["billing_mode[\($0)]"] = $1 }
+        }
+
         if let expand {
             body["expand"] = expand
         }
@@ -467,6 +481,7 @@ public struct StripeSubscriptionRoutes: SubscriptionRoutes {
         trialSettings: [String: Any]? = nil,
         discounts: [[String: Any]]? = nil,
         invoiceSettings: [String: Any]? = nil,
+        billingMode: [String: Any]? = nil,
         expand: [String]? = nil
     ) async throws -> Subscription {
         var body: [String: Any] = [:]
@@ -591,6 +606,10 @@ public struct StripeSubscriptionRoutes: SubscriptionRoutes {
 
         if let invoiceSettings {
             invoiceSettings.forEach { body["invoice_settings[\($0)]"] = $1 }
+        }
+
+        if let billingMode {
+            billingMode.forEach { body["billing_mode[\($0)]"] = $1 }
         }
 
         if let expand {

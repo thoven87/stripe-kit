@@ -58,6 +58,10 @@ public struct Customer: Codable, Sendable {
     public var preferredLocales: [String]?
     /// The account (if any) this customer belongs to. Stripe-managed accounts only.
     public var customerAccount: String?
+    /// The customer's full business name, separate from the personal contact name. Added in Clover 2025-09-30.
+    public var businessName: String?
+    /// The customer's individual/contact name within the business. Added in Clover 2025-09-30.
+    public var individualName: String?
     /// The customer's current discounts.
     public var discounts: [String]?
     /// The customer’s payment sources, if any.

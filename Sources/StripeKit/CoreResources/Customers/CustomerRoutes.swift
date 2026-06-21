@@ -57,9 +57,14 @@ public protocol CustomerRoutes: StripeAPIRoute {
         taxExempt: CustomerTaxExempt?,
         taxIdData: [[String: Any]]?,
         testClock: String?,
+        /// The customer's full business name, separate from the personal contact name. Added in Clover 2025-09-30.
+        businessName: String?,
+        /// The customer's individual/contact name within the business. Added in Clover 2025-09-30.
+        individualName: String?,
         expand: [String]?
     ) async throws -> Customer
 
+    /// Retrieves the details of an existing customer.
     // TODO: - Investigate a deleted field on customer.
     /// Retrieves a Customer object.
     /// - Parameters:
@@ -116,6 +121,10 @@ public protocol CustomerRoutes: StripeAPIRoute {
         source: Any?,
         tax: [String: Any]?,
         taxExempt: CustomerTaxExempt?,
+        /// The customer's full business name, separate from the personal contact name. Added in Clover 2025-09-30.
+        businessName: String?,
+        /// The customer's individual/contact name within the business. Added in Clover 2025-09-30.
+        individualName: String?,
         expand: [String]?
     ) async throws -> Customer
 
@@ -201,6 +210,8 @@ public struct StripeCustomerRoutes: CustomerRoutes {
         taxExempt: CustomerTaxExempt? = nil,
         taxIdData: [[String: Any]]? = nil,
         testClock: String? = nil,
+        businessName: String? = nil,
+        individualName: String? = nil,
         expand: [String]? = nil
     ) async throws -> Customer {
         var body: [String: Any] = [:]
@@ -293,6 +304,14 @@ public struct StripeCustomerRoutes: CustomerRoutes {
             body["test_clock"] = testClock
         }
 
+        if let businessName {
+            body["business_name"] = businessName
+        }
+
+        if let individualName {
+            body["individual_name"] = individualName
+        }
+
         if let expand {
             body["expand"] = expand
         }
@@ -332,6 +351,8 @@ public struct StripeCustomerRoutes: CustomerRoutes {
         source: Any? = nil,
         tax: [String: Any]? = nil,
         taxExempt: CustomerTaxExempt? = nil,
+        businessName: String? = nil,
+        individualName: String? = nil,
         expand: [String]? = nil
     ) async throws -> Customer {
         var body: [String: Any] = [:]
@@ -414,6 +435,14 @@ public struct StripeCustomerRoutes: CustomerRoutes {
 
         if let taxExempt {
             body["tax_exempt"] = taxExempt.rawValue
+        }
+
+        if let businessName {
+            body["business_name"] = businessName
+        }
+
+        if let individualName {
+            body["individual_name"] = individualName
         }
 
         if let expand {

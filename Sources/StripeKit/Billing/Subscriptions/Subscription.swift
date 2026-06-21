@@ -114,6 +114,8 @@ public struct Subscription: Codable, Sendable {
     public var trialSettings: SubscriptionTrialSettings?
     /// If the subscription has a trial, the beginning of that trial.
     public var trialStart: Date?
+    /// Details about the presentment currency for this subscription.
+    public var presentmentDetails: SubscriptionPresentmentDetails?
     /// The plan (legacy) of the first item in this subscription, if the subscription has a single plan.
     public var plan: Plan?
     /// The quantity (legacy) of the plan to which the customer is subscribed, if the subscription only contains a single plan.
@@ -514,4 +516,10 @@ public struct SubscriptionInvoiceIssuer: Codable, Sendable {
     public var type: String?
     /// The account that is the issuer. Only returned when `type` is `account`.
     public var account: String?
+}
+
+/// Presentment details for a subscription (Basil 2025-05-28+).
+public struct SubscriptionPresentmentDetails: Codable, Sendable {
+    /// The presentment currency for this subscription.
+    public var presentmentCurrency: Currency?
 }

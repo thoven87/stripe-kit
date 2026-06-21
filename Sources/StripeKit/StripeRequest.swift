@@ -53,18 +53,34 @@ struct StripeAPIHandler: Sendable {
         ]
         headers.forEach { _headers.replaceOrAdd(name: $0.name, value: $0.value) }
 
-        var request = HTTPClientRequest(url: "\(path)?\(query)")
+        let url = query.isEmpty ? path : "\(path)?\(query)"
+        var request = HTTPClientRequest(url: url)
         request.headers = _headers
         request.method = method
         request.body = body
 
         let response = try await httpClient.execute(request, timeout: .seconds(60))
-        let responseData = try await response.body.collect(upTo: 1024 * 1024 * 100)  // 500mb to account for data downloads.
+        let responseData = try await response.body.collect(upTo: 1024 * 1024 * 100)
 
         guard response.status == .ok else {
             let error = try self.decoder.decode(StripeError.self, from: responseData)
             throw error
         }
-        return try self.decoder.decode(T.self, from: responseData)
+        do {
+            return try self.decoder.decode(T.self, from: responseData)
+        } catch {
+            // Surface the raw response on decode failure to help diagnose API mismatches.
+            let raw =
+                responseData.getString(at: 0, length: responseData.readableBytes)
+                ?? "<non-UTF8 body>"
+            throw DecodingError.dataCorrupted(
+                .init(
+                    codingPath: [],
+                    debugDescription:
+                        "Failed to decode \(T.self). Raw response (\(response.status.code) \(url)): \(raw)",
+                    underlyingError: error
+                )
+            )
+        }
     }
 }
