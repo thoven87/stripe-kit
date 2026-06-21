@@ -240,6 +240,14 @@ public protocol SubscriptionRoutes: StripeAPIRoute {
     ///   - page: A cursor for pagination across multiple pages of results. Don’t include this parameter on the first call. Use the `next_page` value returned in a previous response to request subsequent results.
     /// - Returns: A dictionary with a `data` property that contains an array of up to `limit` subscriptions. If no objects match the query, the resulting array will be empty. See the related guide on expanding properties in lists.
     func search(query: String, limit: Int?, page: String?) async throws -> SubscriptionSearchResult
+
+    /// Migrates an existing subscription to flexible billing mode.
+    /// Required before adding items with different billing intervals to a subscription.
+    /// See: https://docs.stripe.com/billing/subscriptions/mixed-interval-billing
+    /// - Parameters:
+    ///   - subscription: The ID of the subscription to migrate.
+    ///   - billingMode: Pass `["type": "flexible"]` to enable mixed-interval billing.
+    func migrate(subscription: String, billingMode: [String: Any]) async throws -> Subscription
 }
 
 public struct StripeSubscriptionRoutes: SubscriptionRoutes {
@@ -705,5 +713,13 @@ public struct StripeSubscriptionRoutes: SubscriptionRoutes {
 
         return try await apiHandler.send(
             method: .GET, path: search, query: queryParams.queryParameters, headers: headers)
+    }
+
+    public func migrate(subscription: String, billingMode: [String: Any] = [:]) async throws -> Subscription {
+        var body: [String: Any] = [:]
+        billingMode.forEach { body["billing_mode[\($0)]"] = $1 }
+        return try await apiHandler.send(
+            method: .POST, path: "\(subscriptions)/\(subscription)/migrate",
+            body: .string(body.queryParameters), headers: headers)
     }
 }
