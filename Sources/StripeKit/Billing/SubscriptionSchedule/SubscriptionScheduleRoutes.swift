@@ -49,7 +49,6 @@ public protocol SubscriptionScheduleRoutes: StripeAPIRoute {
   ///  - prorationBehavior: If the update changes the current phase, indicates if the changes should be prorated. Defaults to true.
   ///  - defaultSettings: Object representing the subscription schedule’s default settings.
   ///  - endBehavior: Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
-  ///  - billingMode: The billing mode for subscriptions managed by this schedule. Pass `["type": "flexible"]` to opt into flexible billing mode. Requires API version `2025-06-30.basil` or later.
   ///  - expand: Specifies which fields in the response should be expanded.
   func update(
     schedule: String,
@@ -58,7 +57,6 @@ public protocol SubscriptionScheduleRoutes: StripeAPIRoute {
     prorationBehavior: SubscriptionSchedulePhaseProrationBehavior?,
     defaultSettings: [String: Any]?,
     endBehavior: SubscriptionScheduleEndBehavior?,
-    billingMode: [String: Any]?,
     expand: [String]?
   ) async throws -> SubscriptionSchedule
 
@@ -177,7 +175,6 @@ public struct StripeSubscriptionScheduleRoutes: SubscriptionScheduleRoutes {
     prorationBehavior: SubscriptionSchedulePhaseProrationBehavior? = nil,
     defaultSettings: [String: Any]? = nil,
     endBehavior: SubscriptionScheduleEndBehavior? = nil,
-    billingMode: [String: Any]? = nil,
     expand: [String]? = nil
   ) async throws -> SubscriptionSchedule {
     var body: [String: Any] = [:]
@@ -200,10 +197,6 @@ public struct StripeSubscriptionScheduleRoutes: SubscriptionScheduleRoutes {
 
     if let endBehavior {
       body["end_behavior"] = endBehavior.rawValue
-    }
-
-    if let billingMode {
-      billingMode.forEach { body["billing_mode[\($0)]"] = $1 }
     }
 
     if let expand {
